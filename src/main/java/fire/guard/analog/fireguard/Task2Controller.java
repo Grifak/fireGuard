@@ -304,7 +304,7 @@ public class Task2Controller implements Initializable {
     private void generateDoc(ActionEvent event){
         String filePathVal = null;
         try {
-            filePathVal = documentGenerator.generateDoc(cache, "LVG");
+            filePathVal = documentGenerator.generateDocLVG(cache, "LVG");
         } catch (IOException e) {
             filePath.setText("filePathVal");
         }

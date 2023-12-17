@@ -6,23 +6,22 @@ public class ValuesStorage {
     private Double Va;
     private Double V1m;
     private Double V2m;
-    private Double RhoG;
-    private Double M;
-    private Double Mstar;
+    private Double rhoG;
+    private Double mass;
+    private Double mstar;
     private Double Vsv;
+    private Double Kn = 3.0;
 
-    public Integer getKn() {
-        return Kn;
-    }
-
-    private Integer Kn = 3;
     private Double coefZ;
-
     private Double Csteh;
-    private Double DeltaP;
 
+    private Double deltaP;
     public Double getCoefZ() {
         return coefZ;
+    }
+
+    public Double getKn() {
+        return Kn;
     }
 
     public void setCoefZ(Double coefZ) {
@@ -54,27 +53,27 @@ public class ValuesStorage {
     }
 
     public Double getRhoG() {
-        return RhoG;
+        return rhoG;
     }
 
     public void setRhoG(Double rhoG) {
-        RhoG = rhoG;
+        this.rhoG = rhoG;
     }
 
     public Double getM() {
-        return M;
+        return mass;
     }
 
     public void setM(Double m) {
-        M = m;
+        mass = m;
     }
 
     public Double getMstar() {
-        return Mstar;
+        return mstar;
     }
 
     public void setMstar(Double mstar) {
-        Mstar = mstar;
+        this.mstar = mstar;
     }
 
     public Double getVsv() {
@@ -94,10 +93,10 @@ public class ValuesStorage {
     }
 
     public Double getDeltaP() {
-        return DeltaP;
+        return deltaP;
     }
 
     public void setDeltaP(Double deltaP) {
-        DeltaP = deltaP;
+        this.deltaP = deltaP;
     }
 }

@@ -2,6 +2,7 @@ package fire.guard.analog.fireguard;
 
 import fire.guard.analog.fireguard.calculator.GasCalculator;
 import fire.guard.analog.fireguard.common.ApplicationUtils;
+import fire.guard.analog.fireguard.common.DocumentGenerator;
 import fire.guard.analog.fireguard.common.NumFormatter;
 import fire.guard.analog.fireguard.enums.Task1Stehio;
 import javafx.event.ActionEvent;
@@ -11,7 +12,10 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import java.io.IOException;
+import java.lang.reflect.Field;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -19,6 +23,8 @@ import java.util.ResourceBundle;
 public class Task1Controller implements Initializable {
     private final ValuesStorage valuesStorage = new ValuesStorage();
     private final ApplicationUtils appUtils = new ApplicationUtils() ;
+
+    private final DocumentGenerator documentGenerator = new DocumentGenerator();
     @FXML
     private ChoiceBox<String> dropDownList;
     @FXML
@@ -185,7 +191,13 @@ public class Task1Controller implements Initializable {
 
     }
 
-
     public void onGenerateReport(ActionEvent actionEvent) {
+        String filePathVal = null;
+        try {
+            filePathVal = documentGenerator.generateReportGG(valuesStorage, "GG");
+        } catch (IOException e) {
+            warningLabel.setText("Проблема с генерацией отчета ");
+        }
+        warningLabel.setText(filePathVal);
     }
 }
