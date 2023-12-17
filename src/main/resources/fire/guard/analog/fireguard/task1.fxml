@@ -97,8 +97,6 @@
                <Label layoutX="394.0" layoutY="626.0" text="Число атомов" />
                <Label layoutX="228.0" layoutY="717.0" text="кПа" />
                <Label layoutX="498.0" layoutY="717.0" text="кПа" />
-               <TextField fx:id="dirField" layoutX="454.0" layoutY="830.0" />
-               <Button fx:id="directoryBtn" layoutX="612.0" layoutY="830.0" mnemonicParsing="false" onAction="#chooseDirectory" text="Обзор" />
             </children>
          </AnchorPane>
 
