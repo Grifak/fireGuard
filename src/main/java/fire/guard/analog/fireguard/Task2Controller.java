@@ -24,6 +24,7 @@ import static fire.guard.analog.fireguard.enums.CacheConstants.VAPOUR_DENSITY;
 import static fire.guard.analog.fireguard.enums.CacheConstants.VAPOUR_MASS;
 import static fire.guard.analog.fireguard.enums.CacheConstants.V_ROOM;
 import fire.guard.analog.fireguard.enums.Task2Substance;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
@@ -33,8 +34,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-//import net.sf.jasperreports.engine.JRException;
+import javafx.stage.FileChooser;
 
 public class Task2Controller implements Initializable {
     private Map<String, Double> cache;
@@ -302,13 +304,19 @@ public class Task2Controller implements Initializable {
 
     @FXML
     private void generateDoc(ActionEvent event){
+        FileChooser fil_chooser = new FileChooser();
+        fil_chooser.setTitle("Select File");
+        fil_chooser.setInitialFileName("Отчет_ЛВЖ.docx");
+        File file = fil_chooser.showSaveDialog(null);
+
         String filePathVal = null;
         try {
-            filePathVal = documentGenerator.generateDocLVG(cache, "LVG");
+            filePathVal = documentGenerator.generateDocLVG(cache, file.getAbsolutePath());
         } catch (IOException e) {
             filePath.setText("filePathVal");
         }
         filePath.setText(filePathVal);
+
     }
 
 }

@@ -9,12 +9,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DocumentGenerator {
-    public String generateDocLVG(Map<String, Double> data, String reportCode) throws IOException {
-        XWPFTemplate template = XWPFTemplate.compile("/Users/notremembering/IdeaProjects/fireGuardMaven/src/main/resources/reports/template_LVG.docx").render(data);
+    public String generateDocLVG(Map<String, Double> data, String filePath) throws IOException {
+        XWPFTemplate template = XWPFTemplate.compile("src/main/templates/reports/template_LVG.docx")
+                .render(data);
         NiceXWPFDocument document = template.getXWPFDocument();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         document.write(baos);
-        File file = new File( "/Users/notremembering/IdeaProjects/fireGuardMaven/src/main/resources/reports/tmp.docx");
+        File file = new File( filePath);
         FileOutputStream outputStream = new FileOutputStream(file);
         outputStream.write(baos.toByteArray());
         outputStream.close();
