@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fire.guard.analog.fireguard.Task2Controller">
+   <children>
+      <Pane layoutX="-6.0" prefHeight="880.0" prefWidth="1211.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+         <AnchorPane id="Task2" minHeight="0.0" minWidth="0.0" prefHeight="880.0" prefWidth="1211.0">
+            <children>
+               <ChoiceBox fx:id="listTask2" layoutX="198.0" layoutY="21.0" prefWidth="243.0" />
+               <Label layoutX="33.0" layoutY="25.0" prefHeight="17.0" prefWidth="165.0" text="Выберете вещество:" />
+               <TextField fx:id="molarMassField" alignment="CENTER" layoutX="470.0" layoutY="22.0" prefWidth="112.0" promptText="молярная масса" />
+               <Label layoutX="33.0" layoutY="64.0" prefHeight="17.0" prefWidth="437.0" text="Масса жидкости, которая поступит из аппарата в трубопровод" />
+               <TextField fx:id="pipeLenOtv" layoutX="36.0" layoutY="138.0" onAction="#calcFirstStep" prefHeight="26.0" prefWidth="169.0" promptText="длина трубопровода отв" />
+               <TextField fx:id="diameterPipelinePodv" layoutX="235.0" layoutY="98.0" onAction="#calcFirstStep" prefHeight="26.0" prefWidth="188.0" promptText="диаметр трубопровода подв" />
+               <Label layoutX="33.0" layoutY="218.0" prefHeight="17.0" prefWidth="664.0" text="Масса жидкости, поступившей в помещение за счет подачи насоса до полного отключения задвижек" />
+               <TextField fx:id="pumpFeed" alignment="CENTER" layoutX="36.0" layoutY="251.0" onAction="#calcSecondStep" prefHeight="25.0" prefWidth="200.0" promptText="подача насоса" />
+               <Label layoutX="37.0" layoutY="318.0" prefHeight="17.0" prefWidth="336.0" text="Площадь испарения жидкости" />
+               <TextField fx:id="lenRoom" alignment="CENTER" layoutX="36.0" layoutY="350.0" onAction="#calFifthStep" promptText="длина помещения" />
+               <TextField fx:id="sOkr" alignment="CENTER" layoutX="34.0" layoutY="407.0" onAction="#calFifthStep" promptText="площадь окр изд" />
+               <Label layoutX="34.0" layoutY="479.0" prefHeight="17.0" prefWidth="419.0" text="Интенсивность испарения" />
+               <TextField fx:id="airExchange" alignment="CENTER" layoutX="37.0" layoutY="518.0" onAction="#calcSixthStep" prefHeight="26.0" prefWidth="169.0" promptText="кратность воздухообмена" />
+               <TextField fx:id="pipeLenPodv" layoutX="36.0" layoutY="98.0" onAction="#calcFirstStep" prefWidth="169.0" promptText="длина трубопровода подв" />
+               <TextField fx:id="shutOffTime" alignment="CENTER" layoutX="265.0" layoutY="251.0" onAction="#calcSecondStep" prefHeight="26.0" prefWidth="200.0" promptText="время отключения задвижек" />
+               <TextField fx:id="wedRoom" alignment="CENTER" layoutX="231.0" layoutY="350.0" onAction="#calFifthStep" promptText="ширина помещения" />
+               <TextField fx:id="heiRoom" alignment="CENTER" layoutX="428.0" layoutY="350.0" onAction="#calFifthStep" promptText="высота помещения" />
+               <TextField fx:id="sMirror" alignment="CENTER" layoutX="232.0" layoutY="407.0" onAction="#calFifthStep" promptText="площадь зеркала ванны" />
+               <TextField fx:id="stechCoef" alignment="CENTER" editable="false" layoutX="940.0" layoutY="713.0" promptText="результат" style="-fx-background-color: lightgreen;" />
+               <Label alignment="CENTER" layoutX="940.0" layoutY="696.0" prefHeight="17.0" prefWidth="161.0" text="стехиометрический коэф">
+                  <font>
+                     <Font size="10.0" />
+                  </font>
+               </Label>
+               <TextField fx:id="excesPress" alignment="CENTER" editable="false" layoutX="940.0" layoutY="776.0" promptText="результат" style="-fx-background-color: lightgreen;" />
+               <Label alignment="CENTER" layoutX="940.0" layoutY="759.0" prefHeight="17.0" prefWidth="161.0" text="избыточное давление взраыва">
+                  <font>
+                     <Font size="10.0" />
+                  </font>
+               </Label>
+               <TextField fx:id="category" alignment="CENTER" editable="false" layoutX="942.0" layoutY="839.0" promptText="результат" style="-fx-background-color: lightgreen;" />
+               <Label alignment="CENTER" layoutX="940.0" layoutY="822.0" prefHeight="17.0" prefWidth="161.0" text="категория помещения">
+                  <font>
+                     <Font size="10.0" />
+                  </font>
+               </Label>
+               <Button fx:id="generateBut" layoutX="268.0" layoutY="659.0" mnemonicParsing="false" onAction="#generateDoc" prefHeight="37.0" prefWidth="161.0" text="сгенерировать отчет" />
+               <Button layoutX="75.0" layoutY="659.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="161.0" text="отчистить поля" />
+               <Button layoutX="470.0" layoutY="659.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="161.0" text="справочная инфомация" />
+               <TextField fx:id="filePath" layoutX="71.0" layoutY="593.0" prefHeight="26.0" prefWidth="586.0" />
+            </children></AnchorPane>
+         <TextField fx:id="antuanA" layoutX="417.0" layoutY="518.0" onAction="#calcSixthStep" prefHeight="26.0" prefWidth="75.0" />
+         <Label layoutX="475.0" layoutY="500.0" prefHeight="17.0" prefWidth="188.0" text="константы уравнения Антуана" textAlignment="CENTER">
+            <font>
+               <Font size="10.0" />
+            </font>
+         </Label>
+         <TextField fx:id="antuanB" layoutX="509.0" layoutY="518.0" onAction="#calcSixthStep" prefHeight="26.0" prefWidth="75.0" />
+         <TextField fx:id="antuanC" layoutX="603.0" layoutY="518.0" onAction="#calcSixthStep" prefHeight="26.0" prefWidth="75.0" />
+         <Label layoutX="450.0" layoutY="548.0" text="A" wrapText="true">
+            <font>
+               <Font name="System Bold" size="13.0" />
+            </font>
+         </Label>
+         <Label layoutX="542.0" layoutY="548.0" text="B" wrapText="true">
+            <font>
+               <Font name="System Bold" size="13.0" />
+            </font>
+         </Label>
+         <Label layoutX="635.0" layoutY="548.0" text="C" wrapText="true">
+            <font>
+               <Font name="System Bold" size="13.0" />
+            </font>
+         </Label>
+         <TextField fx:id="evaporTime" alignment="CENTER" editable="false" layoutX="940.0" layoutY="440.0" promptText="результат" style="-fx-background-color: lightgreen;" />
+         <TextField fx:id="vapourMass" alignment="CENTER" editable="false" layoutX="940.0" layoutY="517.0" promptText="результат" style="-fx-background-color: lightgreen;" />
+         <TextField fx:id="freeSpace" alignment="CENTER" editable="false" layoutX="940.0" layoutY="584.0" promptText="результат" style="-fx-background-color: lightgreen;" />
+         <TextField fx:id="vapourDensity" alignment="CENTER" editable="false" layoutX="940.0" layoutY="651.0" promptText="результат" style="-fx-background-color: lightgreen;" />
+         <TextField fx:id="techLiquidMass" alignment="CENTER" editable="false" layoutX="940.0" layoutY="181.0" promptText="результат" style="-fx-background-color: lightgreen;" />
+         <TextField fx:id="coefFreeSpace" layoutX="456.0" layoutY="98.0" onAction="#calcFirstStep" prefHeight="26.0" prefWidth="200.0" promptText="коэф свободного пространства" />
+         <TextField fx:id="capacityVol" alignment="CENTER" layoutX="456.0" layoutY="138.0" onAction="#calcFirstStep" prefWidth="200.0" promptText="объем емкости" />
+         <TextField fx:id="diameterPipelineOtv" layoutX="235.0" layoutY="138.0" onAction="#calcFirstStep" prefHeight="25.0" prefWidth="188.0" promptText="диаметр трубопровода отв" />
+         <ChoiceBox fx:id="tempList" accessibleHelp="тепература воздуха" layoutX="230.0" layoutY="519.0" onDragDone="#calcSixthStep" prefHeight="26.0" prefWidth="156.0" />
+         <Label layoutX="227.0" layoutY="502.0" prefHeight="17.0" prefWidth="161.0" text="температура воздуха в помещении">
+            <font>
+               <Font size="10.0" />
+            </font>
+         </Label>
+         <TextField fx:id="formulaField" alignment="CENTER" editable="false" layoutX="606.0" layoutY="22.0" prefWidth="112.0" promptText="формула" />
+         <TextField fx:id="densityField" alignment="CENTER" layoutX="739.0" layoutY="22.0" prefWidth="112.0" promptText="плотность" />
+         <TextField fx:id="pipeLiquidMass" alignment="CENTER" editable="false" layoutX="940.0" layoutY="56.0" promptText="результат" style="-fx-background-color: lightgreen;" />
+         <TextField fx:id="pumpLiquidMass" alignment="CENTER" editable="false" layoutX="939.0" layoutY="119.0" promptText="результат" style="-fx-background-color: lightgreen;" />
+         <TextField fx:id="liquidEvap" alignment="CENTER" editable="false" layoutX="940.0" layoutY="311.0" promptText="результат" style="-fx-background-color: lightgreen;" />
+         <TextField fx:id="evapRate" alignment="CENTER" editable="false" layoutX="940.0" layoutY="377.0" promptText="результат" style="-fx-background-color: lightgreen;" />
+         <Label alignment="CENTER" layoutX="940.0" layoutY="38.0" prefHeight="17.0" prefWidth="161.0" text="масса жидкости из аппарата">
+            <font>
+               <Font size="10.0" />
+            </font>
+         </Label>
+         <Label alignment="CENTER" layoutX="939.0" layoutY="103.0" prefHeight="17.0" prefWidth="161.0" text="масса жидкости до откл задвижек">
+            <font>
+               <Font size="10.0" />
+            </font>
+         </Label>
+         <Label alignment="CENTER" layoutX="940.0" layoutY="166.0" prefHeight="17.0" prefWidth="161.0" text="масса жидкости из тех блока">
+            <font>
+               <Font size="10.0" />
+            </font>
+         </Label>
+         <TextField fx:id="liquidSpill" alignment="CENTER" editable="false" layoutX="940.0" layoutY="244.0" promptText="результат" style="-fx-background-color: lightgreen;" />
+         <Label alignment="CENTER" layoutX="941.0" layoutY="227.0" prefHeight="17.0" prefWidth="161.0" text="площадь жидкости разлива">
+            <font>
+               <Font size="10.0" />
+            </font>
+         </Label>
+         <Label alignment="CENTER" layoutX="940.0" layoutY="294.0" prefHeight="17.0" prefWidth="161.0" text="площадь испарения жидкости">
+            <font>
+               <Font size="10.0" />
+            </font>
+         </Label>
+         <Label alignment="CENTER" layoutX="940.0" layoutY="362.0" prefHeight="17.0" prefWidth="161.0" text="интенсивность испарения">
+            <font>
+               <Font size="10.0" />
+            </font>
+         </Label>
+         <Label alignment="CENTER" layoutX="940.0" layoutY="424.0" prefHeight="17.0" prefWidth="161.0" text="время испарения">
+            <font>
+               <Font size="10.0" />
+            </font>
+         </Label>
+         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="933.0" layoutY="481.0" prefHeight="46.0" prefWidth="181.0" text="масса паров оставшаяся в помещении &#10;с учетом аврийной вентиляции" textAlignment="CENTER">
+            <font>
+               <Font size="10.0" />
+            </font>
+         </Label>
+         <Label alignment="CENTER" layoutX="939.0" layoutY="567.0" prefHeight="17.0" prefWidth="161.0" text="свободный объем помещения">
+            <font>
+               <Font size="10.0" />
+            </font>
+         </Label>
+         <Label alignment="CENTER" layoutX="939.0" layoutY="634.0" prefHeight="17.0" prefWidth="161.0" text="плотность паров">
+            <font>
+               <Font size="10.0" />
+            </font>
+         </Label>
+      </Pane>
+   </children>
+</AnchorPane>
