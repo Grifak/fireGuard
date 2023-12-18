@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DocumentGenerator {
-    public String generateDocLVG(Map<String, Double> data, String filePath) throws IOException {
+    public void generateDocLVG(Map<String, Double> data, String filePath) throws IOException {
         XWPFTemplate template = XWPFTemplate.compile("src/main/templates/reports/template_LVG.docx")
                 .render(data);
         NiceXWPFDocument document = template.getXWPFDocument();
@@ -19,8 +19,6 @@ public class DocumentGenerator {
         FileOutputStream outputStream = new FileOutputStream(file);
         outputStream.write(baos.toByteArray());
         outputStream.close();
-
-        return file.getAbsolutePath();
     }
 
     public String generateReportGG(ValuesStorage storage, String reportCode) throws IOException {

@@ -141,9 +141,6 @@ public class Task2Controller implements Initializable {
     @FXML
     private TextField category;
 
-    @FXML
-    private TextField filePath;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         cache = new HashMap<>();
@@ -171,7 +168,6 @@ public class Task2Controller implements Initializable {
 
         listTask2.getItems().addAll(Task2Substance.getNames());
         listTask2.setOnAction(this::getSubstanceValue);
-        tempList.setOnAction(this::calcSixthStep);
 
         tempList.getItems().addAll(10, 15, 20, 30, 35);
     }
@@ -188,7 +184,7 @@ public class Task2Controller implements Initializable {
         substance = chooseSubstace;
     }
 
-    @FXML
+
     private void calcFirstStep(ActionEvent event){
         Boolean fieldNotIsEmpty = appUtils.validateFields(capacityVol,
                 pipeLenOtv, pipeLenPodv,
@@ -208,7 +204,7 @@ public class Task2Controller implements Initializable {
         }
     }
 
-    @FXML
+
     private void calcSecondStep(ActionEvent event){
         Boolean fieldIsNotEmpty = appUtils.validateFields(pumpFeed, shutOffTime);
         if(fieldIsNotEmpty){
@@ -230,7 +226,7 @@ public class Task2Controller implements Initializable {
         }
     }
 
-    @FXML
+
     private void calFifthStep(ActionEvent event){
         Boolean fieldIsNotEmpty = appUtils.validateFields(sMirror, sOkr, lenRoom, heiRoom, wedRoom);
         if (fieldIsNotEmpty){
@@ -247,7 +243,7 @@ public class Task2Controller implements Initializable {
         }
     }
 
-    @FXML
+
     private void calcSixthStep(ActionEvent event){
         Boolean fieldIsNotEmpty = appUtils.validateFields(airExchange, lenRoom, antuanA, antuanB, antuanC);
         Double tempVal = tempList.getValue().doubleValue();
@@ -303,20 +299,63 @@ public class Task2Controller implements Initializable {
     }
 
     @FXML
+    private void calk(ActionEvent event){
+        calcFirstStep(event);
+        calcSecondStep(event);
+        calFifthStep(event);
+        calcSixthStep(event);
+    }
+
+    @FXML
     private void generateDoc(ActionEvent event){
         FileChooser fil_chooser = new FileChooser();
         fil_chooser.setTitle("Select File");
         fil_chooser.setInitialFileName("Отчет_ЛВЖ.docx");
         File file = fil_chooser.showSaveDialog(null);
 
-        String filePathVal = null;
         try {
-            filePathVal = documentGenerator.generateDocLVG(cache, file.getAbsolutePath());
+            documentGenerator.generateDocLVG(cache, file.getAbsolutePath());
         } catch (IOException e) {
-            filePath.setText("filePathVal");
-        }
-        filePath.setText(filePathVal);
 
+        }
+    }
+
+    @FXML
+    private void cleanFieds(ActionEvent event){
+        listTask2.setValue(null);
+        molarMassField.setText(null);
+        densityField.setText(null);
+        capacityVol.setText(null);
+        pipeLenPodv.setText(null);
+        pipeLenOtv.setText(null);
+        coefFreeSpace.setText(null);
+        diameterPipelinePodv.setText(null);
+        diameterPipelineOtv.setText(null);
+        pipeLiquidMass.setText(null);
+        pumpFeed.setText(null);
+        shutOffTime.setText(null);
+        pumpLiquidMass.setText(null);
+        techLiquidMass.setText(null);
+        liquidSpill.setText(null);
+        lenRoom.setText(null);
+        wedRoom.setText(null);
+        heiRoom.setText(null);
+        sMirror.setText(null);
+        sOkr.setText(null);
+        liquidEvap.setText(null);
+        airExchange.setText(null);
+        formulaField.setText(null);
+        tempList.setValue(0);
+        antuanA.setText(null);
+        antuanB.setText(null);
+        antuanC.setText(null);
+        evapRate.setText(null);
+        evaporTime.setText(null);
+        vapourMass.setText(null);
+        freeSpace.setText(null);
+        vapourDensity.setText(null);
+        stechCoef.setText(null);
+        excesPress.setText(null);
     }
 
 }
