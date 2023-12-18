@@ -10,31 +10,30 @@ import java.util.Map;
 
 public class DocumentGenerator {
     public void generateDocLVG(Map<String, Double> data, String filePath) throws IOException {
-        XWPFTemplate template = XWPFTemplate.compile("src/main/templates/reports/template_LVG.docx")
+        XWPFTemplate template = XWPFTemplate.compile("src/main/resources/templates/template_LVG.docx")
                 .render(data);
         NiceXWPFDocument document = template.getXWPFDocument();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         document.write(baos);
-        File file = new File( filePath);
+        File file = new File(filePath);
         FileOutputStream outputStream = new FileOutputStream(file);
         outputStream.write(baos.toByteArray());
         outputStream.close();
     }
 
-    public String generateReportGG(ValuesStorage storage, String reportCode) throws IOException {
+    public String generateReportGG(ValuesStorage storage, String filepath) throws IOException {
         Double kntmp = 3.0;//try include in map)))))
         Map<String, Double> data = getStringDoubleMap(storage);
 
-        XWPFTemplate template = XWPFTemplate.compile("C:\\Users\\makun\\IdeaProjects\\fireGuard\\src\\main\\resources\\reports\\reportGGtemplate.docx")
+        XWPFTemplate template = XWPFTemplate.compile("src/main/resources/templates/reportGGtemplate.docx")
                 .render(data);
         NiceXWPFDocument document = template.getXWPFDocument();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         document.write(baos);
-        File file = new File( "C:\\Users\\makun\\IdeaProjects\\fireGuard\\src\\main\\resources\\reports\\reportGG.docx");
+        File file = new File(filepath);
         FileOutputStream outputStream = new FileOutputStream(file);
         outputStream.write(baos.toByteArray());
         outputStream.close();
-
         return file.getAbsolutePath();
     }
 
