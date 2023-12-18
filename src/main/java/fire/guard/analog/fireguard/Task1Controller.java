@@ -11,7 +11,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.URL;
@@ -192,12 +194,50 @@ public class Task1Controller implements Initializable {
     }
 
     public void onGenerateReport(ActionEvent actionEvent) {
+        FileChooser file_chooser = new FileChooser();
+        file_chooser.setTitle("Выберите куда сохранить отчет");
+        file_chooser.setInitialFileName("Отчет_ГГ.docx");
+        File file = file_chooser.showSaveDialog(null);
         String filePathVal = null;
         try {
-            filePathVal = documentGenerator.generateReportGG(valuesStorage, "GG");
+            filePathVal = documentGenerator.generateReportGG(valuesStorage, file.getAbsolutePath());
         } catch (IOException e) {
             warningLabel.setText("Проблема с генерацией отчета ");
         }
         warningLabel.setText(filePathVal);
+    }
+
+    public void onClearValues(ActionEvent event){
+
+        res1.clear();
+        res2.clear();
+        res3.clear();
+        res4.clear();
+        res5.clear();
+        res6.clear();
+        res7.clear();
+        res8.clear();
+        res9.clear();
+        res10.clear();
+
+        pressureField.clear();
+        volumeField.clear();
+        gasConsumptionField.clear();
+        closingTimeField.clear();
+        maxP2Field.clear();
+        lpodvField.clear();
+        dodvField.clear();
+        lotvField.clear();
+        dotvField.clear();
+        insideTempField.clear();
+        outGasField.clear();
+        inGasField.clear();
+        airExchgField.clear();
+        lengthField.clear();
+        widthField.clear();
+        heightField.clear();
+        areaCoefField.clear();
+        NoField.clear();
+        NxField.clear();
     }
 }
