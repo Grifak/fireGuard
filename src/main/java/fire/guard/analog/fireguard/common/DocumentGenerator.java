@@ -38,16 +38,17 @@ public class DocumentGenerator {
     }
 
     private static Map<String, Double> getStringDoubleMap(ValuesStorage storage) {
-        Map<String, Double> data = new HashMap<>(Map.of("Va", storage.getVa(),
-                "V1m", storage.getV1m(),
-                "V2m", storage.getV2m(),
-                "rhoG", storage.getRhoG(),
-                "mass", storage.getM(),
-                "Mstar", storage.getMstar(),
-                "coefZ", storage.getCoefZ(),
-                "Vsv", storage.getVsv(),
-                "Csteh", storage.getCsteh(),
-                "deltaP", storage.getDeltaP()));
+        Map<String, Double> data = new HashMap<>();
+        data.put("Va", storage.getVa());
+        data.put("V1m", storage.getV1m());
+        data.put("V2m", storage.getV2m());
+        data.put("rhoG", storage.getRhoG());
+        data.put("mass", storage.getM());
+        data.put("Mstar", storage.getMstar());
+        data.put("coefZ", storage.getCoefZ());
+        data.put("Vsv", storage.getVsv());
+        data.put("Csteh", storage.getCsteh());
+        data.put("deltaP", storage.getDeltaP());
 
         data.put("Kn", 3.0);///XD ))))))))))) legacy joke
         return data;

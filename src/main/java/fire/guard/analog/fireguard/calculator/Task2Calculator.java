@@ -2,8 +2,12 @@ package fire.guard.analog.fireguard.calculator;
 
 import fire.guard.analog.fireguard.common.ApplicationUtils;
 import fire.guard.analog.fireguard.enums.Task2Substance;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javafx.scene.control.TextField;
 
 public class Task2Calculator {
@@ -13,13 +17,23 @@ public class Task2Calculator {
 
     public Task2Calculator(ApplicationUtils appUtils) {
         this.appUtils = appUtils;
-        airSpeedList = List.of((double) 0, 0.1, 0.2, 0.5, 1.0);
-        tempTable = Map.of(10.0 , List.of(1.0, 3.0, 4.6, 6.6, 10.0),
-                15.0, List.of(1.0, 2.6, 3.8, 5.7, 8.7),
-                20.0, List.of(1.0, 2.4, 3.5, 5.4, 7.7),
-                30.0, List.of(1.0, 1.8, 2.4, 3.6, 5.6),
-                35.0, List.of(1.0, 1.6, 2.3, 3.2, 4.6)
-        );
+        airSpeedList = new ArrayList<>();
+        airSpeedList.add(0.0);
+        airSpeedList.add(0.1);
+        airSpeedList.add(0.2);
+        airSpeedList.add(0.5);
+        airSpeedList.add(1.0);
+        List<Double> list1 = Stream.of(1.0, 3.0, 4.6, 6.6, 10.0).collect(Collectors.toList());
+        List<Double> list2 = Stream.of(1.0, 2.6, 3.8, 5.7, 8.7).collect(Collectors.toList());
+        List<Double> list3 = Stream.of(1.0, 2.4, 3.5, 5.4, 7.7).collect(Collectors.toList());
+        List<Double> list4 = Stream.of(1.0, 1.8, 2.4, 3.6, 5.6).collect(Collectors.toList());
+        List<Double> list5 = Stream.of(1.0, 1.6, 2.3, 3.2, 4.6).collect(Collectors.toList());
+        tempTable = new HashMap<>();
+        tempTable.put(10.0, list1);
+        tempTable.put(15.0, list2);
+        tempTable.put(20.0, list3);
+        tempTable.put(30.0, list4);
+        tempTable.put(35.0, list5);
     }
 
     public Double calcPipeLiquidMass(TextField density,

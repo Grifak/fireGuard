@@ -99,7 +99,7 @@ public class Task1Controller implements Initializable {
     private TextField res10;
     @FXML
     private Label warningLabel;
-    private final Map<String,Integer> gasMap = Map.of("Ацетилен", 26,"Бутан", 58,"Бутен", 56,"Метан", 16,"Пропилен", 42,"Этан", 30,"Этилен", 28);
+    private final Map<String,Integer> gasMap = new HashMap<>();
 
     private final Double[] coefficientZ = {1.0, 0.5, 0.3, 0.0};
 
@@ -107,7 +107,13 @@ public class Task1Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        gasMap.put("Ацетилен", 26);
+        gasMap.put("Бутан", 58);
+        gasMap.put("Бутен", 56);
+        gasMap.put("Метан", 16);
+        gasMap.put("Пропилен", 42);
+        gasMap.put("Этан", 30);
+        gasMap.put("Этилен", 28);
         pressureField.setTextFormatter(NumFormatter.getFormatter());
         volumeField.setTextFormatter(NumFormatter.getFormatter());
         gasConsumptionField.setTextFormatter(NumFormatter.getFormatter());
@@ -130,10 +136,10 @@ public class Task1Controller implements Initializable {
         NxField.setTextFormatter(NumFormatter.getFormatter());
         startPressureField.setTextFormatter(NumFormatter.getFormatter());
 
-        for(var item : gasMap.keySet()) {
+        for(String item : gasMap.keySet()) {
             dropDownList.getItems().add(item);
         }
-        for(var item : coefficientZ){
+        for(Double item : coefficientZ){
             dropDownListZ.getItems().add(String.valueOf(item));
         }
         dropDownListSteh.getItems().addAll(Task1Stehio.getNames());

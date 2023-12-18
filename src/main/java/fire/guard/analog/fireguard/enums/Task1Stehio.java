@@ -2,6 +2,7 @@ package fire.guard.analog.fireguard.enums;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public enum Task1Stehio {
     ACETYLENE("Ацетилен",2,2),
@@ -19,7 +20,7 @@ public enum Task1Stehio {
     public static List<String> getNames(){
         return Arrays.stream(Task1Stehio.values())
                 .map(Task1Stehio::getName)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     public static Task1Stehio getByName(String name){

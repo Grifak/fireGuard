@@ -2,6 +2,7 @@ package fire.guard.analog.fireguard.enums;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public enum Task2Substance {
     GEKSAN("гексан", "C6 H10 O", 98, 6.33089, 1670.009, 230.312, 661, 6, 10, 0, 1),
@@ -84,7 +85,7 @@ public enum Task2Substance {
     public static List<String> getNames(){
         return Arrays.stream(Task2Substance.values())
                 .map(Task2Substance::getName)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     public static Task2Substance getByName(String name){
