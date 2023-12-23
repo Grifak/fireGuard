@@ -4,7 +4,16 @@ import fire.guard.analog.fireguard.calculator.Task2Calculator;
 import fire.guard.analog.fireguard.common.ApplicationUtils;
 import fire.guard.analog.fireguard.common.DocumentGenerator;
 import fire.guard.analog.fireguard.common.NumFormatter;
+import static fire.guard.analog.fireguard.enums.CacheConstants.AIR_EXCHANGE;
 import static fire.guard.analog.fireguard.enums.CacheConstants.AIR_SPEED;
+import static fire.guard.analog.fireguard.enums.CacheConstants.ANTUANA_A;
+import static fire.guard.analog.fireguard.enums.CacheConstants.ANTUANA_B;
+import static fire.guard.analog.fireguard.enums.CacheConstants.ANTUANA_C;
+import static fire.guard.analog.fireguard.enums.CacheConstants.CAPACITY_VOL;
+import static fire.guard.analog.fireguard.enums.CacheConstants.COEF_FREE_SPACE;
+import static fire.guard.analog.fireguard.enums.CacheConstants.DENSITY;
+import static fire.guard.analog.fireguard.enums.CacheConstants.DIAMETER_PIPELINE_ODV;
+import static fire.guard.analog.fireguard.enums.CacheConstants.DIAMETER_PIPELINE_PODV;
 import static fire.guard.analog.fireguard.enums.CacheConstants.EVAP_RATE;
 import static fire.guard.analog.fireguard.enums.CacheConstants.EVAP_TIME;
 import static fire.guard.analog.fireguard.enums.CacheConstants.EXCES_PRESS;
@@ -12,11 +21,27 @@ import static fire.guard.analog.fireguard.enums.CacheConstants.FREE_SPACE;
 import static fire.guard.analog.fireguard.enums.CacheConstants.LIQUID_EVAP;
 import static fire.guard.analog.fireguard.enums.CacheConstants.LIQUID_SPILL;
 import static fire.guard.analog.fireguard.enums.CacheConstants.MASS_EVAP;
+import static fire.guard.analog.fireguard.enums.CacheConstants.MOLAR_MASS;
 import static fire.guard.analog.fireguard.enums.CacheConstants.NU;
+import static fire.guard.analog.fireguard.enums.CacheConstants.N_C;
+import static fire.guard.analog.fireguard.enums.CacheConstants.N_H;
+import static fire.guard.analog.fireguard.enums.CacheConstants.N_O;
+import static fire.guard.analog.fireguard.enums.CacheConstants.N_X;
+import static fire.guard.analog.fireguard.enums.CacheConstants.PIPE_LEN_ODV;
+import static fire.guard.analog.fireguard.enums.CacheConstants.PIPE_LEN_PODV;
 import static fire.guard.analog.fireguard.enums.CacheConstants.PIPE_LIQUID_MASS;
+import static fire.guard.analog.fireguard.enums.CacheConstants.PUMP_FEED;
 import static fire.guard.analog.fireguard.enums.CacheConstants.PUMP_LIQUID_MASS;
+import static fire.guard.analog.fireguard.enums.CacheConstants.ROOM_HEIGHT;
+import static fire.guard.analog.fireguard.enums.CacheConstants.ROOM_LEN;
+import static fire.guard.analog.fireguard.enums.CacheConstants.ROOM_TEMP;
+import static fire.guard.analog.fireguard.enums.CacheConstants.ROOM_WEIGHT;
+import static fire.guard.analog.fireguard.enums.CacheConstants.SHUT_OFF_TIME;
 import static fire.guard.analog.fireguard.enums.CacheConstants.STECH_COEF;
 import static fire.guard.analog.fireguard.enums.CacheConstants.STREEM_PRESS;
+import static fire.guard.analog.fireguard.enums.CacheConstants.SUBSTANCE_NAME;
+import static fire.guard.analog.fireguard.enums.CacheConstants.S_MIRROR;
+import static fire.guard.analog.fireguard.enums.CacheConstants.S_OKR;
 import static fire.guard.analog.fireguard.enums.CacheConstants.S_ROOM;
 import static fire.guard.analog.fireguard.enums.CacheConstants.TECH_LIQUID_MASS;
 import static fire.guard.analog.fireguard.enums.CacheConstants.V;
@@ -304,6 +329,31 @@ public class Task2Controller implements Initializable {
         calcSecondStep(event);
         calFifthStep(event);
         calcSixthStep(event);
+        cache.put(ROOM_LEN.getName(), appUtils.getDoubleFromField(lenRoom));
+        cache.put(ROOM_WEIGHT.getName(), appUtils.getDoubleFromField(wedRoom));
+        cache.put(ROOM_HEIGHT.getName(), appUtils.getDoubleFromField(heiRoom));
+        cache.put(CAPACITY_VOL.getName(), appUtils.getDoubleFromField(capacityVol));
+        cache.put(COEF_FREE_SPACE.getName(), appUtils.getDoubleFromField(coefFreeSpace));
+        cache.put(PUMP_FEED.getName(), appUtils.getDoubleFromField(pumpFeed));
+        cache.put(S_MIRROR.getName(), appUtils.getDoubleFromField(sMirror));
+        cache.put(S_OKR.getName(), appUtils.getDoubleFromField(sOkr));
+        cache.put(FREE_SPACE.getName(), appUtils.getDoubleFromField(freeSpace));
+        cache.put(ROOM_TEMP.getName(), tempList.getValue().doubleValue());
+        cache.put(SHUT_OFF_TIME.getName(), appUtils.getDoubleFromField(shutOffTime));
+        cache.put(AIR_EXCHANGE.getName(), appUtils.getDoubleFromField(airExchange));
+        cache.put(MOLAR_MASS.getName(), appUtils.getDoubleFromField(molarMassField));
+        cache.put(DENSITY.getName(), appUtils.getDoubleFromField(densityField));
+        cache.put(ANTUANA_A.getName(), appUtils.getDoubleFromField(antuanA));
+        cache.put(ANTUANA_B.getName(), appUtils.getDoubleFromField(antuanB));
+        cache.put(ANTUANA_C.getName(), appUtils.getDoubleFromField(antuanC));
+        cache.put(N_C.getName(), substance.getnC().doubleValue());
+        cache.put(N_O.getName(), substance.getnO().doubleValue());
+        cache.put(N_X.getName(), substance.getnX().doubleValue());
+        cache.put(N_H.getName(), substance.getnH().doubleValue());
+        cache.put(PIPE_LEN_ODV.getName(), appUtils.getDoubleFromField(pipeLenOtv));
+        cache.put(PIPE_LEN_PODV.getName(), appUtils.getDoubleFromField(pipeLenPodv));
+        cache.put(DIAMETER_PIPELINE_PODV.getName(), appUtils.getDoubleFromField(diameterPipelinePodv));
+        cache.put(DIAMETER_PIPELINE_ODV.getName(), appUtils.getDoubleFromField(diameterPipelineOtv));
     }
 
     @FXML
@@ -314,7 +364,7 @@ public class Task2Controller implements Initializable {
         File file = fil_chooser.showSaveDialog(null);
 
         try {
-            documentGenerator.generateDocLVG(cache, file.getAbsolutePath());
+            documentGenerator.generateDocLVG(cache, file.getAbsolutePath(), substance.getName());
         }catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -4,6 +4,10 @@ import com.aspose.words.Document;
 import com.deepoove.poi.XWPFTemplate;
 import com.deepoove.poi.xwpf.NiceXWPFDocument;
 import fire.guard.analog.fireguard.ValuesStorage;
+import fire.guard.analog.fireguard.enums.CacheConstants;
+import java.util.Collection;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javafx.scene.control.Label;
 
 import java.io.*;
@@ -11,9 +15,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DocumentGenerator {
-    public void generateDocLVG(Map<String, Double> data, String filePathPdf) throws Exception {
+    public void generateDocLVG(Map<String, Double> data, String filePathPdf, String substanceName) throws Exception {
+        Map<String, String> result = data.entrySet()
+                .stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, e -> String.valueOf(e.getValue())));
+
+        result.put(CacheConstants.SUBSTANCE_NAME.getName(), substanceName);
         XWPFTemplate template = XWPFTemplate.compile("/Users/notremembering/IdeaProjects/fireGuardMaven/src/main/resources/templates/template_LVG.docx")
-                .render(data);
+                .render(result);
         NiceXWPFDocument document = template.getXWPFDocument();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         document.write(baos);
