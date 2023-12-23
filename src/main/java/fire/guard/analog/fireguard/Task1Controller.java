@@ -13,9 +13,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 
+
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -201,14 +201,18 @@ public class Task1Controller implements Initializable {
 
     public void onGenerateReport(ActionEvent actionEvent) {
         FileChooser file_chooser = new FileChooser();
+        warningLabel.setText("create chooser");
         file_chooser.setTitle("Выберите куда сохранить отчет");
         file_chooser.setInitialFileName("Отчет_ГГ.docx");
         File file = file_chooser.showSaveDialog(null);
+        warningLabel.setText("choose file");
         String filePathVal = null;
         try {
-            filePathVal = documentGenerator.generateReportGG(valuesStorage, file.getAbsolutePath());
-        } catch (IOException e) {
-            warningLabel.setText("Проблема с генерацией отчета ");
+            warningLabel.setText("Документ создается...");
+            actionEvent.wait(5L);
+            filePathVal = documentGenerator.generateReportGG(valuesStorage, file.getAbsolutePath(),warningLabel);
+        } catch (Exception e) {
+            warningLabel.setText(e.getMessage());
         }
         warningLabel.setText(filePathVal);
     }
