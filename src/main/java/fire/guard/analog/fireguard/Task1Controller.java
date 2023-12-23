@@ -209,12 +209,11 @@ public class Task1Controller implements Initializable {
         String filePathVal = null;
         try {
             warningLabel.setText("Документ создается...");
-            actionEvent.wait(5L);
             filePathVal = documentGenerator.generateReportGG(valuesStorage, file.getAbsolutePath(),warningLabel);
         } catch (Exception e) {
             warningLabel.setText(e.getMessage());
         }
-        warningLabel.setText(filePathVal);
+        warningLabel.setText("Отчет создан" + filePathVal);
     }
 
     public void onClearValues(ActionEvent event){

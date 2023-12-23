@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class DocumentGenerator {
     public void generateDocLVG(Map<String, Double> data, String filePath) throws IOException {
-        XWPFTemplate template = XWPFTemplate.compile("out/artifacts/fireguard/templates/template_LVG.docx")
+        XWPFTemplate template = XWPFTemplate.compile("C:\\Users\\makun\\IdeaProjects\\fireGuard\\src\\main\\resources\\templates\\template_LVG.docx")
                 .render(data);
         NiceXWPFDocument document = template.getXWPFDocument();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -27,8 +27,8 @@ public class DocumentGenerator {
         Map<String, Double> data = getStringDoubleMap(storage);
 
         try {
-            warningLabel.setText("begin try");
-            XWPFTemplate template = XWPFTemplate.compile("out/artifacts/fireguard/templates/reportGGtemplate.docx")
+            warningLabel.setText("Создается отчет...");
+            XWPFTemplate template = XWPFTemplate.compile("C:\\Users\\makun\\IdeaProjects\\fireGuard\\src\\main\\resources\\templates\\reportGGtemplate.docx")
                     .render(data);
             NiceXWPFDocument document = template.getXWPFDocument();
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -37,7 +37,6 @@ public class DocumentGenerator {
             FileOutputStream outputStream = new FileOutputStream(file);
             outputStream.write(baos.toByteArray());
             outputStream.close();
-            warningLabel.setText("file created " + file.getAbsolutePath());
             return file.getAbsolutePath();
         }catch (Exception e){
             warningLabel.setText(e.getMessage());
