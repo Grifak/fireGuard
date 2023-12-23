@@ -13,9 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 
-
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -190,6 +188,39 @@ public class Task1Controller implements Initializable {
                     valuesStorage.getCoefZ(), valuesStorage.getVsv(), valuesStorage.getRhoG(),
                     valuesStorage.getCsteh(), Double.valueOf(valuesStorage.getKn())));
 
+
+            valuesStorage.setLength(appUtils.getDoubleFromField(lengthField));
+            valuesStorage.setMolarMass(Double.valueOf(gasMap.get(dropDownList.getValue())));
+            valuesStorage.setTemperature(appUtils.getDoubleFromField(insideTempField));
+            valuesStorage.setWidth(appUtils.getDoubleFromField(widthField));
+            valuesStorage.setHeight(appUtils.getDoubleFromField(heightField));
+            valuesStorage.setSquare(valuesStorage.getLength() * valuesStorage.getWidth());
+            valuesStorage.setAreaVolume(valuesStorage.getLength() * valuesStorage.getWidth() * valuesStorage.getHeight());
+            valuesStorage.setAreaVolume(valuesStorage.getLength() * valuesStorage.getWidth() * valuesStorage.getHeight());
+            valuesStorage.setAreaCoef(appUtils.getDoubleFromField(areaCoefField));
+            valuesStorage.setGasName(dropDownList.getValue());
+            valuesStorage.setNc(NcField);
+            valuesStorage.setNh(NhField);
+            valuesStorage.setNo(appUtils.getDoubleFromField(NoField));
+            valuesStorage.setNx(appUtils.getDoubleFromField(NxField));
+            valuesStorage.setContainerPressure(appUtils.getDoubleFromField(pressureField));
+            valuesStorage.setContainerVolume(appUtils.getDoubleFromField(volumeField));
+            valuesStorage.setGasConsumption(appUtils.getDoubleFromField(gasConsumptionField));
+            valuesStorage.setClosingTime(appUtils.getDoubleFromField(closingTimeField));
+            valuesStorage.setClosingTime(appUtils.getDoubleFromField(closingTimeField));
+            valuesStorage.setMaxP2(appUtils.getDoubleFromField(maxP2Field));
+            valuesStorage.setLotv(appUtils.getDoubleFromField(lotvField));
+            valuesStorage.setLpodv(appUtils.getDoubleFromField(lpodvField));
+            valuesStorage.setDotv(appUtils.getDoubleFromField(dotvField));
+            valuesStorage.setDpodv(appUtils.getDoubleFromField(dodvField));
+
+
+
+
+
+
+
+
             fillResultingValues();
         }
         catch (Exception exception){
@@ -201,7 +232,6 @@ public class Task1Controller implements Initializable {
 
     public void onGenerateReport(ActionEvent actionEvent) {
         FileChooser file_chooser = new FileChooser();
-        warningLabel.setText("create chooser");
         file_chooser.setTitle("Выберите куда сохранить отчет");
         file_chooser.setInitialFileName("Отчет_ГГ.pdf");
         File file = file_chooser.showSaveDialog(null);
@@ -213,7 +243,7 @@ public class Task1Controller implements Initializable {
         } catch (Exception e) {
             warningLabel.setText(e.getMessage());
         }
-        warningLabel.setText("Отчет создан" + filePathVal);
+        warningLabel.setText("Отчет создан " + filePathVal);
     }
 
     public void onClearValues(ActionEvent event){
