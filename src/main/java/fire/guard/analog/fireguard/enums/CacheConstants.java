@@ -20,7 +20,39 @@ public enum CacheConstants {
     VAPOUR_DENSITY("vapourDensity"),
     STECH_COEF("stechCoef"),
     EXCES_PRESS("excesPress"),
-    V("v");
+
+    ROOM_LEN("roomLen"),
+    ROOM_HEIGHT("roomHeight"),
+    ROOM_WEIGHT("roomWeight"),
+    CAPACITY_VOL("capacityVol"),
+    PUMP_FEED("pumpFeed"),
+    S_MIRROR("sMirror"),
+    ROOM_TEMP("roomTemp"),
+    SHUT_OFF_TIME("shutOffTime"),
+    AIR_EXCHANGE("airExchange"),
+
+    SUBSTANCE_NAME("substanceName"),
+
+    MOLAR_MASS("molarMass"),
+
+    DENSITY("density"),
+
+    PIPE_LEN_PODV("pipeLenPodv"),
+    PIPE_LEN_ODV("pipeLenOdv"),
+    DIAMETER_PIPELINE_PODV("diameterPipelinePodv"),
+    DIAMETER_PIPELINE_ODV("diameterPipelineOdv"),
+    COEF_FREE_SPACE("coefFreeSpace"),
+    S_OKR("sOkr"),
+    ANTUANA_A("antuanaA"),
+    ANTUANA_B("antuanaB"),
+    ANTUANA_C("antuanaC"),
+    V("v"),
+
+    N_C("nC"),
+    N_H("nH"),
+    N_O("nO"),
+
+    N_X("nX");
     private String name;
 
     CacheConstants(String name) {
