@@ -15,8 +15,21 @@
         <poi.version>5.2.2</poi.version>
         <poi-tl.version>1.12.0</poi-tl.version>
     </properties>
+    <repositories>
+        <repository>
+            <id>AsposeJavaAPI</id>
+            <name>Aspose Java API</name>
+            <url>https://repository.aspose.com/repo/</url>
+        </repository>
+    </repositories>
 
     <dependencies>
+        <dependency>
+            <groupId>com.aspose</groupId>
+            <artifactId>aspose-words</artifactId>
+            <version>20.1</version>
+            <classifier>jdk17</classifier>
+        </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
@@ -123,34 +136,21 @@
                 </configuration>
             </plugin>
             <plugin>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.1</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>fire.guard.analog.fireguard.AppLauncher</mainClass>
-                                </transformer>
-                            </transformers>
-                            <filters>
-                                <filter>
-                                    <artifact>*:*</artifact>
-                                    <excludes>
-                                        <exclude>META-INF/*.SF</exclude>
-                                        <exclude>META-INF/*.DSA</exclude>
-                                        <exclude>META-INF/*.RSA</exclude>
-                                    </excludes>
-                                </filter>
-                            </filters>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-maven-plugin</artifactId>
+            <version>0.0.8</version>
+            <executions>
+                <execution>
+                    <!-- Default configuration for running with: mvn clean javafx:run -->
+                    <id>default-cli</id>
+                    <configuration>
+                        <mainClass>
+                            fire.guard.analog.fireguard.fireguard/fire.guard.analog.fireguard.FireGuardApplication
+                        </mainClass>s>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
         </plugins>
     </build>
 </project>

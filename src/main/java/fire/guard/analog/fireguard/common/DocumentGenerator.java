@@ -1,5 +1,6 @@
 package fire.guard.analog.fireguard.common;
 
+import com.aspose.words.Document;
 import com.deepoove.poi.XWPFTemplate;
 import com.deepoove.poi.xwpf.NiceXWPFDocument;
 import fire.guard.analog.fireguard.ValuesStorage;
@@ -10,33 +11,40 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DocumentGenerator {
-    public void generateDocLVG(Map<String, Double> data, String filePath) throws IOException {
-        XWPFTemplate template = XWPFTemplate.compile("C:\\Users\\makun\\IdeaProjects\\fireGuard\\src\\main\\resources\\templates\\template_LVG.docx")
+    public void generateDocLVG(Map<String, Double> data, String filePathPdf) throws Exception {
+        XWPFTemplate template = XWPFTemplate.compile("/Users/notremembering/IdeaProjects/fireGuardMaven/src/main/resources/templates/template_LVG.docx")
                 .render(data);
         NiceXWPFDocument document = template.getXWPFDocument();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         document.write(baos);
-        File file = new File(filePath);
+        String filePathDocx = filePathPdf.replace(".pdf", ".docx");
+        File file = new File(filePathDocx);
         FileOutputStream outputStream = new FileOutputStream(file);
         outputStream.write(baos.toByteArray());
         outputStream.close();
+        Document doc = new Document(filePathDocx);
+        doc.save(filePathPdf);
     }
 
-    public String generateReportGG(ValuesStorage storage, String filepath, Label warningLabel) throws IOException {
+    public String generateReportGG(ValuesStorage storage, String filePathPdf, Label warningLabel) throws IOException {
         Double kntmp = 3.0;//try include in map)))))
         Map<String, Double> data = getStringDoubleMap(storage);
 
         try {
             warningLabel.setText("Создается отчет...");
-            XWPFTemplate template = XWPFTemplate.compile("C:\\Users\\makun\\IdeaProjects\\fireGuard\\src\\main\\resources\\templates\\reportGGtemplate.docx")
+            XWPFTemplate template = XWPFTemplate.compile("/Users/notremembering/IdeaProjects/fireGuardMaven/src/main/resources/templates/reportGGtemplate.docx")
                     .render(data);
             NiceXWPFDocument document = template.getXWPFDocument();
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             document.write(baos);
-            File file = new File(filepath);
+            String filePathDocx = filePathPdf.replace(".pdf", ".docx");
+            File file = new File(filePathDocx);
             FileOutputStream outputStream = new FileOutputStream(file);
             outputStream.write(baos.toByteArray());
             outputStream.close();
+
+            Document doc = new Document(filePathDocx);
+            doc.save(filePathPdf);
             return file.getAbsolutePath();
         }catch (Exception e){
             warningLabel.setText(e.getMessage());

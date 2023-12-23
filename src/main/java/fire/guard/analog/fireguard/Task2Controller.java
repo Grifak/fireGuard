@@ -310,13 +310,13 @@ public class Task2Controller implements Initializable {
     private void generateDoc(ActionEvent event){
         FileChooser fil_chooser = new FileChooser();
         fil_chooser.setTitle("Select File");
-        fil_chooser.setInitialFileName("Отчет_ЛВЖ.docx");
+        fil_chooser.setInitialFileName("Отчет_ЛВЖ.pdf");
         File file = fil_chooser.showSaveDialog(null);
 
         try {
             documentGenerator.generateDocLVG(cache, file.getAbsolutePath());
-        } catch (IOException e) {
-
+        }catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 

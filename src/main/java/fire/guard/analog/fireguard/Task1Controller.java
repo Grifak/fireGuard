@@ -203,7 +203,7 @@ public class Task1Controller implements Initializable {
         FileChooser file_chooser = new FileChooser();
         warningLabel.setText("create chooser");
         file_chooser.setTitle("Выберите куда сохранить отчет");
-        file_chooser.setInitialFileName("Отчет_ГГ.docx");
+        file_chooser.setInitialFileName("Отчет_ГГ.pdf");
         File file = file_chooser.showSaveDialog(null);
         warningLabel.setText("choose file");
         String filePathVal = null;
