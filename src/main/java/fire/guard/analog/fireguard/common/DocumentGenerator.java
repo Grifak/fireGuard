@@ -4,6 +4,8 @@ import com.aspose.words.Document;
 import com.deepoove.poi.XWPFTemplate;
 import com.deepoove.poi.xwpf.NiceXWPFDocument;
 import fire.guard.analog.fireguard.ValuesStorage;
+import fire.guard.analog.fireguard.enums.CacheConstants;
+import java.util.stream.Collectors;
 import javafx.scene.control.Label;
 
 import java.io.*;
@@ -93,7 +95,7 @@ public class DocumentGenerator {
         data.put("dotv",storage.getDotv().toString());
         data.put("molarMass", storage.getMolarMass().toString());
 
-        data.put("Kn", 3.0);///XD ))))))))))) legacy joke
+        data.put("Kn", String.valueOf(3.0));///XD ))))))))))) legacy joke
         return data;
     }
 }
