@@ -5,6 +5,7 @@ import com.deepoove.poi.XWPFTemplate;
 import com.deepoove.poi.xwpf.NiceXWPFDocument;
 import fire.guard.analog.fireguard.ValuesStorage;
 import fire.guard.analog.fireguard.enums.CacheConstants;
+import java.net.URL;
 import java.util.stream.Collectors;
 import javafx.scene.control.Label;
 
@@ -19,7 +20,8 @@ public class DocumentGenerator {
                 .collect(Collectors.toMap(Map.Entry::getKey, e -> String.valueOf(e.getValue())));
 
         result.put(CacheConstants.SUBSTANCE_NAME.getName(), substanceName);
-        XWPFTemplate template = XWPFTemplate.compile("/Users/notremembering/IdeaProjects/fireGuardMaven/src/main/resources/templates/template_LVG.docx")
+        URL resource = DocumentGenerator.class.getClassLoader().getResource("templates/template_LVG.docx");
+        XWPFTemplate template = XWPFTemplate.compile(resource.getPath())
                 .render(result);
         NiceXWPFDocument document = template.getXWPFDocument();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -39,7 +41,8 @@ public class DocumentGenerator {
 
         try {
             warningLabel.setText("Создается отчет...");
-            XWPFTemplate template = XWPFTemplate.compile("/Users/notremembering/IdeaProjects/fireGuardMaven/src/main/resources/templates/template_GG.docx")
+            URL resource = DocumentGenerator.class.getClassLoader().getResource("templates/template_GG.docx");
+            XWPFTemplate template = XWPFTemplate.compile(resource.getPath())
                     .render(data);
             NiceXWPFDocument document = template.getXWPFDocument();
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
