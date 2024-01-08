@@ -196,19 +196,6 @@ public class Task2Controller implements Initializable {
 
         tempList.getItems().addAll(10, 15, 20, 30, 35);
     }
-
-    public void getSubstanceValue(ActionEvent event){
-        Task2Substance chooseSubstace = Task2Substance.getByName(listTask2.getValue());
-        molarMassField.setText(chooseSubstace.getMolarMass().toString());
-        formulaField.setText(chooseSubstace.getFormula());
-        antuanA.setText(chooseSubstace.getAntuanA().toString());
-        antuanB.setText(chooseSubstace.getAntuanB().toString());
-        antuanC.setText(chooseSubstace.getAntuanC().toString());
-        densityField.setText(chooseSubstace.getDensity().toString());
-
-        substance = chooseSubstace;
-    }
-
     @FXML
     private void calk(ActionEvent event){
         calcFirstStep(event);
@@ -297,6 +284,18 @@ public class Task2Controller implements Initializable {
         excesPress.setText(null);
     }
 
+    public void getSubstanceValue(ActionEvent event){
+        Task2Substance chooseSubstace = Task2Substance.getByName(listTask2.getValue());
+        molarMassField.setText(chooseSubstace.getMolarMass().toString());
+        formulaField.setText(chooseSubstace.getFormula());
+        antuanA.setText(chooseSubstace.getAntuanA().toString());
+        antuanB.setText(chooseSubstace.getAntuanB().toString());
+        antuanC.setText(chooseSubstace.getAntuanC().toString());
+        densityField.setText(chooseSubstace.getDensity().toString());
+
+        substance = chooseSubstace;
+    }
+
     private void calcFirstStep(ActionEvent event){
         Boolean fieldNotIsEmpty = appUtils.validateFields(capacityVol,
                 pipeLenOtv, pipeLenPodv,
@@ -312,7 +311,7 @@ public class Task2Controller implements Initializable {
             cache.put(PIPE_LIQUID_MASS.getName(), pipeLiquidMassCalc);
             pipeLiquidMass.setText(pipeLiquidMassCalc.toString());
         }else {
-            pipeLiquidMass.setText(null);
+            warningLabel.setText("Недостаточно данных. Заполните все поля");
         }
     }
 
@@ -334,7 +333,7 @@ public class Task2Controller implements Initializable {
             cache.put(LIQUID_SPILL.getName(), calcLiquidSpill);
             liquidSpill.setText(calcLiquidSpill.toString());
         }else {
-            pumpLiquidMass.setText(null);
+            warningLabel.setText("Недостаточно данных. Заполните все поля");
         }
     }
 
@@ -351,7 +350,7 @@ public class Task2Controller implements Initializable {
             cache.put(LIQUID_EVAP.getName(), calcLiquidEvap);
             liquidEvap.setText(calcLiquidEvap.toString());
         }else {
-            liquidEvap.setText(null);
+            warningLabel.setText("Недостаточно данных. Заполните все поля");
         }
     }
 
@@ -405,7 +404,7 @@ public class Task2Controller implements Initializable {
             excesPress.setText(excesPressVal.toString());
 
         }else {
-            evapRate.setText(null);
+            warningLabel.setText("Недостаточно данных. Заполните все поля");
         }
 
     }

@@ -212,13 +212,6 @@ public class Task1Controller implements Initializable {
             valuesStorage.setDotv(appUtils.getDoubleFromField(dotvField));
             valuesStorage.setDpodv(appUtils.getDoubleFromField(dodvField));
 
-
-
-
-
-
-
-
             fillResultingValues();
         }
         catch (Exception exception){
