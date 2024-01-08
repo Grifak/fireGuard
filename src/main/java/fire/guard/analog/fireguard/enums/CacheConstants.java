@@ -1,5 +1,10 @@
 package fire.guard.analog.fireguard.enums;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+@Getter
 public enum CacheConstants {
     EVAP_RATE("evapRate"),
     EVAP_TIME("evapTime"),
@@ -53,13 +58,6 @@ public enum CacheConstants {
     N_O("nO"),
 
     N_X("nX");
-    private String name;
 
-    CacheConstants(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
+    private final String name;
 }

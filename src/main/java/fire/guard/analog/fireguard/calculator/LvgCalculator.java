@@ -10,12 +10,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javafx.scene.control.TextField;
 
-public class Task2Calculator {
+public class LvgCalculator {
     private ApplicationUtils appUtils;
     private List<Double> airSpeedList;
     private Map<Double, List<Double>> tempTable;
 
-    public Task2Calculator(ApplicationUtils appUtils) {
+    public LvgCalculator(ApplicationUtils appUtils) {
         this.appUtils = appUtils;
         airSpeedList = new ArrayList<>();
         airSpeedList.add(0.0);
@@ -131,7 +131,7 @@ public class Task2Calculator {
     }
 
     public Double calcStechCoef(Task2Substance substance){
-        Double betta = substance.getnC() + ((substance.getnH() - substance.getnX())/4.0)-(substance.getnO()/2.0);
+        Double betta = substance.getNC() + ((substance.getNH() - substance.getNX())/4.0)-(substance.getNO()/2.0);
 
         return 100/(1 + (4.84*betta));
     }

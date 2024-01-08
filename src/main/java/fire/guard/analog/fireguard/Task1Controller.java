@@ -3,8 +3,12 @@ package fire.guard.analog.fireguard;
 import fire.guard.analog.fireguard.calculator.GasCalculator;
 import fire.guard.analog.fireguard.common.ApplicationUtils;
 import fire.guard.analog.fireguard.common.DocumentGenerator;
-import fire.guard.analog.fireguard.common.NumFormatter;
 import fire.guard.analog.fireguard.enums.Task1Stehio;
+import java.io.File;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,12 +16,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
-
-import java.io.File;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
 
 
 public class Task1Controller implements Initializable {
@@ -112,27 +110,27 @@ public class Task1Controller implements Initializable {
         gasMap.put("Пропилен", 42);
         gasMap.put("Этан", 30);
         gasMap.put("Этилен", 28);
-        pressureField.setTextFormatter(NumFormatter.getFormatter());
-        volumeField.setTextFormatter(NumFormatter.getFormatter());
-        gasConsumptionField.setTextFormatter(NumFormatter.getFormatter());
-        closingTimeField.setTextFormatter(NumFormatter.getFormatter());
-        maxPressureField.setTextFormatter(NumFormatter.getFormatter());
-        maxP2Field.setTextFormatter(NumFormatter.getFormatter());
-        lpodvField.setTextFormatter(NumFormatter.getFormatter());
-        dodvField.setTextFormatter(NumFormatter.getFormatter());
-        lotvField.setTextFormatter(NumFormatter.getFormatter());
-        dotvField.setTextFormatter(NumFormatter.getFormatter());
-        insideTempField.setTextFormatter(NumFormatter.getFormatter());
-        outGasField.setTextFormatter(NumFormatter.getFormatter());
-        inGasField.setTextFormatter(NumFormatter.getFormatter());
-        airExchgField.setTextFormatter(NumFormatter.getFormatter());
-        lengthField.setTextFormatter(NumFormatter.getFormatter());
-        widthField.setTextFormatter(NumFormatter.getFormatter());
-        heightField.setTextFormatter(NumFormatter.getFormatter());
-        areaCoefField.setTextFormatter(NumFormatter.getFormatter());
-        NoField.setTextFormatter(NumFormatter.getFormatter());
-        NxField.setTextFormatter(NumFormatter.getFormatter());
-        startPressureField.setTextFormatter(NumFormatter.getFormatter());
+        pressureField.setTextFormatter(ApplicationUtils.getFormatter());
+        volumeField.setTextFormatter(ApplicationUtils.getFormatter());
+        gasConsumptionField.setTextFormatter(ApplicationUtils.getFormatter());
+        closingTimeField.setTextFormatter(ApplicationUtils.getFormatter());
+        maxPressureField.setTextFormatter(ApplicationUtils.getFormatter());
+        maxP2Field.setTextFormatter(ApplicationUtils.getFormatter());
+        lpodvField.setTextFormatter(ApplicationUtils.getFormatter());
+        dodvField.setTextFormatter(ApplicationUtils.getFormatter());
+        lotvField.setTextFormatter(ApplicationUtils.getFormatter());
+        dotvField.setTextFormatter(ApplicationUtils.getFormatter());
+        insideTempField.setTextFormatter(ApplicationUtils.getFormatter());
+        outGasField.setTextFormatter(ApplicationUtils.getFormatter());
+        inGasField.setTextFormatter(ApplicationUtils.getFormatter());
+        airExchgField.setTextFormatter(ApplicationUtils.getFormatter());
+        lengthField.setTextFormatter(ApplicationUtils.getFormatter());
+        widthField.setTextFormatter(ApplicationUtils.getFormatter());
+        heightField.setTextFormatter(ApplicationUtils.getFormatter());
+        areaCoefField.setTextFormatter(ApplicationUtils.getFormatter());
+        NoField.setTextFormatter(ApplicationUtils.getFormatter());
+        NxField.setTextFormatter(ApplicationUtils.getFormatter());
+        startPressureField.setTextFormatter(ApplicationUtils.getFormatter());
 
         for(String item : gasMap.keySet()) {
             dropDownList.getItems().add(item);
@@ -159,7 +157,7 @@ public class Task1Controller implements Initializable {
         res3.setText(String.valueOf(valuesStorage.getV1m()));
         res4.setText(String.valueOf(valuesStorage.getV2m()));
         res5.setText(String.valueOf(valuesStorage.getRhoG()));
-        res6.setText(String.valueOf(valuesStorage.getM()));
+        res6.setText(String.valueOf(valuesStorage.getMass()));
         res7.setText(String.valueOf(valuesStorage.getMstar()));
         res8.setText(String.valueOf(valuesStorage.getVsv()));
         res9.setText(String.valueOf(valuesStorage.getCsteh()));
@@ -175,8 +173,8 @@ public class Task1Controller implements Initializable {
                     appUtils.getDoubleFromField(dotvField)));
 
             valuesStorage.setRhoG(GasCalculator.calculateRhoG(gasMap.get(dropDownList.getValue()), appUtils.getDoubleFromField(insideTempField)));
-            valuesStorage.setM(GasCalculator.calculateM(appUtils.getDoubleFromField(inGasField), appUtils.getDoubleFromField(outGasField), valuesStorage.getRhoG()));
-            valuesStorage.setMstar(GasCalculator.calculateMStar(valuesStorage.getM(), appUtils.getDoubleFromField(airExchgField), appUtils.getDoubleFromField(closingTimeField)));
+            valuesStorage.setMass(GasCalculator.calculateM(appUtils.getDoubleFromField(inGasField), appUtils.getDoubleFromField(outGasField), valuesStorage.getRhoG()));
+            valuesStorage.setMstar(GasCalculator.calculateMStar(valuesStorage.getMass(), appUtils.getDoubleFromField(airExchgField), appUtils.getDoubleFromField(closingTimeField)));
             valuesStorage.setCoefZ(Double.parseDouble(dropDownListZ.getValue()));
             valuesStorage.setVsv(GasCalculator.calculateVsv(appUtils.getDoubleFromField(lengthField), appUtils.getDoubleFromField(widthField),
                     appUtils.getDoubleFromField(heightField), appUtils.getDoubleFromField(areaCoefField)));

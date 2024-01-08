@@ -1,9 +1,8 @@
 package fire.guard.analog.fireguard;
 
-import fire.guard.analog.fireguard.calculator.Task2Calculator;
+import fire.guard.analog.fireguard.calculator.LvgCalculator;
 import fire.guard.analog.fireguard.common.ApplicationUtils;
 import fire.guard.analog.fireguard.common.DocumentGenerator;
-import fire.guard.analog.fireguard.common.NumFormatter;
 import static fire.guard.analog.fireguard.enums.CacheConstants.AIR_EXCHANGE;
 import static fire.guard.analog.fireguard.enums.CacheConstants.AIR_SPEED;
 import static fire.guard.analog.fireguard.enums.CacheConstants.ANTUANA_A;
@@ -39,7 +38,6 @@ import static fire.guard.analog.fireguard.enums.CacheConstants.ROOM_WEIGHT;
 import static fire.guard.analog.fireguard.enums.CacheConstants.SHUT_OFF_TIME;
 import static fire.guard.analog.fireguard.enums.CacheConstants.STECH_COEF;
 import static fire.guard.analog.fireguard.enums.CacheConstants.STREEM_PRESS;
-import static fire.guard.analog.fireguard.enums.CacheConstants.SUBSTANCE_NAME;
 import static fire.guard.analog.fireguard.enums.CacheConstants.S_MIRROR;
 import static fire.guard.analog.fireguard.enums.CacheConstants.S_OKR;
 import static fire.guard.analog.fireguard.enums.CacheConstants.S_ROOM;
@@ -50,7 +48,6 @@ import static fire.guard.analog.fireguard.enums.CacheConstants.VAPOUR_MASS;
 import static fire.guard.analog.fireguard.enums.CacheConstants.V_ROOM;
 import fire.guard.analog.fireguard.enums.Task2Substance;
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -65,10 +62,10 @@ import javafx.stage.FileChooser;
 
 public class Task2Controller implements Initializable {
     private Map<String, Double> cache;
-    private Task2Calculator calculator;
+    private LvgCalculator calculator;
     private ApplicationUtils appUtils;
     private Task2Substance substance;
-    private final DocumentGenerator documentGenerator = new DocumentGenerator();
+    private DocumentGenerator documentGenerator;
 
     @FXML
     private ChoiceBox<String> listTask2;
@@ -166,30 +163,33 @@ public class Task2Controller implements Initializable {
     @FXML
     private TextField category;
 
+    @FXML
+    private Label warningLabel;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         cache = new HashMap<>();
         appUtils = new ApplicationUtils();
-        calculator = new Task2Calculator(appUtils);
+        calculator = new LvgCalculator(appUtils);
+        documentGenerator = new DocumentGenerator();
 
-
-        capacityVol.setTextFormatter(NumFormatter.getFormatter());
-        pipeLenPodv.setTextFormatter(NumFormatter.getFormatter());
-        pipeLenOtv.setTextFormatter(NumFormatter.getFormatter());
-        coefFreeSpace.setTextFormatter(NumFormatter.getFormatter());
-        diameterPipelinePodv.setTextFormatter(NumFormatter.getFormatter());
-        diameterPipelineOtv.setTextFormatter(NumFormatter.getFormatter());
-        pumpFeed.setTextFormatter(NumFormatter.getFormatter());
-        shutOffTime.setTextFormatter(NumFormatter.getFormatter());
-        lenRoom.setTextFormatter(NumFormatter.getFormatter());
-        wedRoom.setTextFormatter(NumFormatter.getFormatter());
-        heiRoom.setTextFormatter(NumFormatter.getFormatter());
-        sOkr.setTextFormatter(NumFormatter.getFormatter());
-        sMirror.setTextFormatter(NumFormatter.getFormatter());
-        airExchange.setTextFormatter(NumFormatter.getFormatter());
-        antuanA.setTextFormatter(NumFormatter.getFormatter());
-        antuanB.setTextFormatter(NumFormatter.getFormatter());
-        antuanC.setTextFormatter(NumFormatter.getFormatter());
+        capacityVol.setTextFormatter(ApplicationUtils.getFormatter());
+        pipeLenPodv.setTextFormatter(ApplicationUtils.getFormatter());
+        pipeLenOtv.setTextFormatter(ApplicationUtils.getFormatter());
+        coefFreeSpace.setTextFormatter(ApplicationUtils.getFormatter());
+        diameterPipelinePodv.setTextFormatter(ApplicationUtils.getFormatter());
+        diameterPipelineOtv.setTextFormatter(ApplicationUtils.getFormatter());
+        pumpFeed.setTextFormatter(ApplicationUtils.getFormatter());
+        shutOffTime.setTextFormatter(ApplicationUtils.getFormatter());
+        lenRoom.setTextFormatter(ApplicationUtils.getFormatter());
+        wedRoom.setTextFormatter(ApplicationUtils.getFormatter());
+        heiRoom.setTextFormatter(ApplicationUtils.getFormatter());
+        sOkr.setTextFormatter(ApplicationUtils.getFormatter());
+        sMirror.setTextFormatter(ApplicationUtils.getFormatter());
+        airExchange.setTextFormatter(ApplicationUtils.getFormatter());
+        antuanA.setTextFormatter(ApplicationUtils.getFormatter());
+        antuanB.setTextFormatter(ApplicationUtils.getFormatter());
+        antuanC.setTextFormatter(ApplicationUtils.getFormatter());
 
         listTask2.getItems().addAll(Task2Substance.getNames());
         listTask2.setOnAction(this::getSubstanceValue);
@@ -209,6 +209,93 @@ public class Task2Controller implements Initializable {
         substance = chooseSubstace;
     }
 
+    @FXML
+    private void calk(ActionEvent event){
+        calcFirstStep(event);
+        calcSecondStep(event);
+        calFifthStep(event);
+        calcSixthStep(event);
+        cache.put(ROOM_LEN.getName(), appUtils.getDoubleFromField(lenRoom));
+        cache.put(ROOM_WEIGHT.getName(), appUtils.getDoubleFromField(wedRoom));
+        cache.put(ROOM_HEIGHT.getName(), appUtils.getDoubleFromField(heiRoom));
+        cache.put(CAPACITY_VOL.getName(), appUtils.getDoubleFromField(capacityVol));
+        cache.put(COEF_FREE_SPACE.getName(), appUtils.getDoubleFromField(coefFreeSpace));
+        cache.put(PUMP_FEED.getName(), appUtils.getDoubleFromField(pumpFeed));
+        cache.put(S_MIRROR.getName(), appUtils.getDoubleFromField(sMirror));
+        cache.put(S_OKR.getName(), appUtils.getDoubleFromField(sOkr));
+        cache.put(FREE_SPACE.getName(), appUtils.getDoubleFromField(freeSpace));
+        cache.put(ROOM_TEMP.getName(), tempList.getValue().doubleValue());
+        cache.put(SHUT_OFF_TIME.getName(), appUtils.getDoubleFromField(shutOffTime));
+        cache.put(AIR_EXCHANGE.getName(), appUtils.getDoubleFromField(airExchange));
+        cache.put(MOLAR_MASS.getName(), appUtils.getDoubleFromField(molarMassField));
+        cache.put(DENSITY.getName(), appUtils.getDoubleFromField(densityField));
+        cache.put(ANTUANA_A.getName(), appUtils.getDoubleFromField(antuanA));
+        cache.put(ANTUANA_B.getName(), appUtils.getDoubleFromField(antuanB));
+        cache.put(ANTUANA_C.getName(), appUtils.getDoubleFromField(antuanC));
+        cache.put(N_C.getName(), substance.getNC().doubleValue());
+        cache.put(N_O.getName(), substance.getNO().doubleValue());
+        cache.put(N_X.getName(), substance.getNX().doubleValue());
+        cache.put(N_H.getName(), substance.getNH().doubleValue());
+        cache.put(PIPE_LEN_ODV.getName(), appUtils.getDoubleFromField(pipeLenOtv));
+        cache.put(PIPE_LEN_PODV.getName(), appUtils.getDoubleFromField(pipeLenPodv));
+        cache.put(DIAMETER_PIPELINE_PODV.getName(), appUtils.getDoubleFromField(diameterPipelinePodv));
+        cache.put(DIAMETER_PIPELINE_ODV.getName(), appUtils.getDoubleFromField(diameterPipelineOtv));
+    }
+
+    @FXML
+    private void generateDoc(ActionEvent event){
+        FileChooser fil_chooser = new FileChooser();
+        fil_chooser.setTitle("Select File");
+        fil_chooser.setInitialFileName("Отчет_ЛВЖ.pdf");
+        File file = fil_chooser.showSaveDialog(null);
+
+        try {
+            warningLabel.setText("Документ создается...");
+            String filePath = documentGenerator.generateDocLVG(cache, file.getAbsolutePath(), substance.getName());
+            warningLabel.setText("Отчет создан: " + filePath);
+        }catch (Exception e) {
+            warningLabel.setText(e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    private void cleanFieds(ActionEvent event){
+        listTask2.setValue(null);
+        molarMassField.setText(null);
+        densityField.setText(null);
+        capacityVol.setText(null);
+        pipeLenPodv.setText(null);
+        pipeLenOtv.setText(null);
+        coefFreeSpace.setText(null);
+        diameterPipelinePodv.setText(null);
+        diameterPipelineOtv.setText(null);
+        pipeLiquidMass.setText(null);
+        pumpFeed.setText(null);
+        shutOffTime.setText(null);
+        pumpLiquidMass.setText(null);
+        techLiquidMass.setText(null);
+        liquidSpill.setText(null);
+        lenRoom.setText(null);
+        wedRoom.setText(null);
+        heiRoom.setText(null);
+        sMirror.setText(null);
+        sOkr.setText(null);
+        liquidEvap.setText(null);
+        airExchange.setText(null);
+        formulaField.setText(null);
+        tempList.setValue(0);
+        antuanA.setText(null);
+        antuanB.setText(null);
+        antuanC.setText(null);
+        evapRate.setText(null);
+        evaporTime.setText(null);
+        vapourMass.setText(null);
+        freeSpace.setText(null);
+        vapourDensity.setText(null);
+        stechCoef.setText(null);
+        excesPress.setText(null);
+    }
 
     private void calcFirstStep(ActionEvent event){
         Boolean fieldNotIsEmpty = appUtils.validateFields(capacityVol,
@@ -322,90 +409,4 @@ public class Task2Controller implements Initializable {
         }
 
     }
-
-    @FXML
-    private void calk(ActionEvent event){
-        calcFirstStep(event);
-        calcSecondStep(event);
-        calFifthStep(event);
-        calcSixthStep(event);
-        cache.put(ROOM_LEN.getName(), appUtils.getDoubleFromField(lenRoom));
-        cache.put(ROOM_WEIGHT.getName(), appUtils.getDoubleFromField(wedRoom));
-        cache.put(ROOM_HEIGHT.getName(), appUtils.getDoubleFromField(heiRoom));
-        cache.put(CAPACITY_VOL.getName(), appUtils.getDoubleFromField(capacityVol));
-        cache.put(COEF_FREE_SPACE.getName(), appUtils.getDoubleFromField(coefFreeSpace));
-        cache.put(PUMP_FEED.getName(), appUtils.getDoubleFromField(pumpFeed));
-        cache.put(S_MIRROR.getName(), appUtils.getDoubleFromField(sMirror));
-        cache.put(S_OKR.getName(), appUtils.getDoubleFromField(sOkr));
-        cache.put(FREE_SPACE.getName(), appUtils.getDoubleFromField(freeSpace));
-        cache.put(ROOM_TEMP.getName(), tempList.getValue().doubleValue());
-        cache.put(SHUT_OFF_TIME.getName(), appUtils.getDoubleFromField(shutOffTime));
-        cache.put(AIR_EXCHANGE.getName(), appUtils.getDoubleFromField(airExchange));
-        cache.put(MOLAR_MASS.getName(), appUtils.getDoubleFromField(molarMassField));
-        cache.put(DENSITY.getName(), appUtils.getDoubleFromField(densityField));
-        cache.put(ANTUANA_A.getName(), appUtils.getDoubleFromField(antuanA));
-        cache.put(ANTUANA_B.getName(), appUtils.getDoubleFromField(antuanB));
-        cache.put(ANTUANA_C.getName(), appUtils.getDoubleFromField(antuanC));
-        cache.put(N_C.getName(), substance.getnC().doubleValue());
-        cache.put(N_O.getName(), substance.getnO().doubleValue());
-        cache.put(N_X.getName(), substance.getnX().doubleValue());
-        cache.put(N_H.getName(), substance.getnH().doubleValue());
-        cache.put(PIPE_LEN_ODV.getName(), appUtils.getDoubleFromField(pipeLenOtv));
-        cache.put(PIPE_LEN_PODV.getName(), appUtils.getDoubleFromField(pipeLenPodv));
-        cache.put(DIAMETER_PIPELINE_PODV.getName(), appUtils.getDoubleFromField(diameterPipelinePodv));
-        cache.put(DIAMETER_PIPELINE_ODV.getName(), appUtils.getDoubleFromField(diameterPipelineOtv));
-    }
-
-    @FXML
-    private void generateDoc(ActionEvent event){
-        FileChooser fil_chooser = new FileChooser();
-        fil_chooser.setTitle("Select File");
-        fil_chooser.setInitialFileName("Отчет_ЛВЖ.pdf");
-        File file = fil_chooser.showSaveDialog(null);
-
-        try {
-            documentGenerator.generateDocLVG(cache, file.getAbsolutePath(), substance.getName());
-        }catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @FXML
-    private void cleanFieds(ActionEvent event){
-        listTask2.setValue(null);
-        molarMassField.setText(null);
-        densityField.setText(null);
-        capacityVol.setText(null);
-        pipeLenPodv.setText(null);
-        pipeLenOtv.setText(null);
-        coefFreeSpace.setText(null);
-        diameterPipelinePodv.setText(null);
-        diameterPipelineOtv.setText(null);
-        pipeLiquidMass.setText(null);
-        pumpFeed.setText(null);
-        shutOffTime.setText(null);
-        pumpLiquidMass.setText(null);
-        techLiquidMass.setText(null);
-        liquidSpill.setText(null);
-        lenRoom.setText(null);
-        wedRoom.setText(null);
-        heiRoom.setText(null);
-        sMirror.setText(null);
-        sOkr.setText(null);
-        liquidEvap.setText(null);
-        airExchange.setText(null);
-        formulaField.setText(null);
-        tempList.setValue(0);
-        antuanA.setText(null);
-        antuanB.setText(null);
-        antuanC.setText(null);
-        evapRate.setText(null);
-        evaporTime.setText(null);
-        vapourMass.setText(null);
-        freeSpace.setText(null);
-        vapourDensity.setText(null);
-        stechCoef.setText(null);
-        excesPress.setText(null);
-    }
-
 }

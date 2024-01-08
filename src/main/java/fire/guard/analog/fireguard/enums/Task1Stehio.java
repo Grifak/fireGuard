@@ -1,9 +1,13 @@
 package fire.guard.analog.fireguard.enums;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Getter
+@RequiredArgsConstructor
 public enum Task1Stehio {
     ACETYLENE("Ацетилен",2,2),
     BUTANE("Бутан",4,10),
@@ -13,9 +17,9 @@ public enum Task1Stehio {
     ETHAN("Этан",2,6),
     ETHYLENE("Этилен",2,4);
 
-    private String name;
-    private Integer Nc;
-    private Integer Nh;
+    private final String name;
+    private final Integer Nc;
+    private final Integer Nh;
 
     public static List<String> getNames(){
         return Arrays.stream(Task1Stehio.values())
@@ -28,36 +32,6 @@ public enum Task1Stehio {
                 .filter(val -> val.getName().equals(name))
                 .findFirst()
                 .orElse(null);
-    }
-
-    public Integer getNc() {
-        return Nc;
-    }
-
-    public void setNc(Integer nc) {
-        Nc = nc;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getNh() {
-        return Nh;
-    }
-
-    public void setNh(Integer nh) {
-        Nh = nh;
-    }
-
-    Task1Stehio(String name, Integer Nc, Integer Nh){
-        this.name = name;
-        this.Nc = Nc;
-        this.Nh = Nh;
     }
 
 }

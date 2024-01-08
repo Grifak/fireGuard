@@ -14,15 +14,34 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DocumentGenerator {
-    public void generateDocLVG(Map<String, Double> data, String filePathPdf, String substanceName) throws Exception {
+    public String generateDocLVG(Map<String, Double> data, String filePathPdf, String substanceName) throws Exception {
         Map<String, String> result = data.entrySet()
                 .stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, e -> String.valueOf(e.getValue())));
 
         result.put(CacheConstants.SUBSTANCE_NAME.getName(), substanceName);
         URL resource = DocumentGenerator.class.getClassLoader().getResource("templates/template_LVG.docx");
+        return createDocument(resource, result, filePathPdf);
+    }
+
+    public String generateReportGG(ValuesStorage storage, String filePathPdf, Label warningLabel) throws IOException {
+        Double kntmp = 3.0;//try include in map)))))
+        Map<String, String> data = getStringDoubleMap(storage);
+
+        try {
+            warningLabel.setText("Создается отчет...");
+            URL resource = DocumentGenerator.class.getClassLoader().getResource("templates/template_GG.docx");
+            return createDocument(resource, data, filePathPdf);
+        }catch (Exception e){
+            warningLabel.setText(e.getMessage());
+            throw new IOException(e.getMessage());
+        }
+
+    }
+
+    private String createDocument(URL resource, Map<String, String> data, String filePathPdf) throws Exception {
         XWPFTemplate template = XWPFTemplate.compile(resource.getPath())
-                .render(result);
+                .render(data);
         NiceXWPFDocument document = template.getXWPFDocument();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         document.write(baos);
@@ -33,34 +52,7 @@ public class DocumentGenerator {
         outputStream.close();
         Document doc = new Document(filePathDocx);
         doc.save(filePathPdf);
-    }
-
-    public String generateReportGG(ValuesStorage storage, String filePathPdf, Label warningLabel) throws IOException {
-        Double kntmp = 3.0;//try include in map)))))
-        Map<String, String> data = getStringDoubleMap(storage);
-
-        try {
-            warningLabel.setText("Создается отчет...");
-            URL resource = DocumentGenerator.class.getClassLoader().getResource("templates/template_GG.docx");
-            XWPFTemplate template = XWPFTemplate.compile(resource.getPath())
-                    .render(data);
-            NiceXWPFDocument document = template.getXWPFDocument();
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            document.write(baos);
-            String filePathDocx = filePathPdf.replace(".pdf", ".docx");
-            File file = new File(filePathDocx);
-            FileOutputStream outputStream = new FileOutputStream(file);
-            outputStream.write(baos.toByteArray());
-            outputStream.close();
-
-            Document doc = new Document(filePathDocx);
-            doc.save(filePathPdf);
-            return file.getAbsolutePath();
-        }catch (Exception e){
-            warningLabel.setText(e.getMessage());
-            throw new IOException(e.getMessage());
-        }
-
+        return file.getAbsolutePath();
     }
 
     private static Map<String, String> getStringDoubleMap(ValuesStorage storage) {
@@ -69,7 +61,7 @@ public class DocumentGenerator {
         data.put("V1m", storage.getV1m().toString());
         data.put("V2m", storage.getV2m().toString());
         data.put("rhoG", storage.getRhoG().toString());
-        data.put("mass", storage.getM().toString());
+        data.put("mass", storage.getMass().toString());
         data.put("Mstar", storage.getMstar().toString());
         data.put("coefZ", storage.getCoefZ().toString());
         data.put("Vsv", storage.getVsv().toString());
