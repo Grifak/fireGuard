@@ -3,23 +3,30 @@ package fire.guard.analog.fireguard;
 import fire.guard.analog.fireguard.calculator.GasCalculator;
 import fire.guard.analog.fireguard.common.ApplicationUtils;
 import fire.guard.analog.fireguard.common.DocumentGenerator;
-import fire.guard.analog.fireguard.enums.Task1Stehio;
-import java.io.File;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class Task1Controller implements Initializable {
-    private final ValuesStorage valuesStorage = new ValuesStorage();
+    private final ValuesStorage valuesStorage = ValuesStorage.getInstance();
     private final ApplicationUtils appUtils = new ApplicationUtils() ;
 
     private final DocumentGenerator documentGenerator = new DocumentGenerator();
@@ -61,18 +68,18 @@ public class Task1Controller implements Initializable {
     private TextField areaCoefField;
     private Double NcField;
     private Double NhField;
-    @FXML
-    private TextField NxField;
-    @FXML
-    private TextField NoField;
+//    @FXML
+//    private TextField NxField;
+//    @FXML
+//    private TextField NoField;
     @FXML
     private TextField maxPressureField;
     @FXML
     private TextField startPressureField;
     @FXML
     private ChoiceBox<String> dropDownListZ;
-    @FXML
-    private ChoiceBox<String> dropDownListSteh;
+//    @FXML
+//    private ChoiceBox<String> dropDownListSteh;
     @FXML
     private TextField res1;
     @FXML
@@ -95,6 +102,9 @@ public class Task1Controller implements Initializable {
     private TextField res10;
     @FXML
     private Label warningLabel;
+
+    @FXML
+    private Button getInfoButton;
     private final Map<String,Integer> gasMap = new HashMap<>();
 
     private final Double[] coefficientZ = {1.0, 0.5, 0.3, 0.0};
@@ -128,8 +138,6 @@ public class Task1Controller implements Initializable {
         widthField.setTextFormatter(ApplicationUtils.getFormatter());
         heightField.setTextFormatter(ApplicationUtils.getFormatter());
         areaCoefField.setTextFormatter(ApplicationUtils.getFormatter());
-        NoField.setTextFormatter(ApplicationUtils.getFormatter());
-        NxField.setTextFormatter(ApplicationUtils.getFormatter());
         startPressureField.setTextFormatter(ApplicationUtils.getFormatter());
 
         for(String item : gasMap.keySet()) {
@@ -138,21 +146,18 @@ public class Task1Controller implements Initializable {
         for(Double item : coefficientZ){
             dropDownListZ.getItems().add(String.valueOf(item));
         }
-        dropDownListSteh.getItems().addAll(Task1Stehio.getNames());
-        dropDownListSteh.setOnAction(this::getStehioValue);
 
     }
 
     public void getStehioValue(ActionEvent actionEvent){
-        Task1Stehio stehio = Task1Stehio.getByName(dropDownListSteh.getValue());
-        NcField = Double.valueOf(stehio.getNc());
-        NhField = Double.valueOf(stehio.getNh());
+//        Task1Stehio stehio = Task1Stehio.getByName(dropDownListSteh.getValue());
+//        NcField = Double.valueOf(stehio.getNc());
+//        NhField = Double.valueOf(stehio.getNh());
 
     }
 
     public void fillResultingValues(){
         warningLabel.setText("");
-        res1.setText(String.valueOf(gasMap.get(dropDownList.getValue())));
         res2.setText(String.valueOf(valuesStorage.getVa()));
         res3.setText(String.valueOf(valuesStorage.getV1m()));
         res4.setText(String.valueOf(valuesStorage.getV2m()));
@@ -162,6 +167,8 @@ public class Task1Controller implements Initializable {
         res8.setText(String.valueOf(valuesStorage.getVsv()));
         res9.setText(String.valueOf(valuesStorage.getCsteh()));
         res10.setText(String.valueOf(valuesStorage.getDeltaP()));
+        warningLabel.setText(valuesStorage.getObjectAddress());
+
     }
 
     public void onGetValues(ActionEvent actionEvent){
@@ -179,7 +186,7 @@ public class Task1Controller implements Initializable {
             valuesStorage.setVsv(GasCalculator.calculateVsv(appUtils.getDoubleFromField(lengthField), appUtils.getDoubleFromField(widthField),
                     appUtils.getDoubleFromField(heightField), appUtils.getDoubleFromField(areaCoefField)));
 
-            valuesStorage.setCsteh(GasCalculator.calculateCsteh(NcField, NhField, appUtils.getDoubleFromField(NxField), appUtils.getDoubleFromField(NoField)));
+//            valuesStorage.setCsteh(GasCalculator.calculateCsteh(NcField, NhField, appUtils.getDoubleFromField(NxField), appUtils.getDoubleFromField(NoField)));
 
             valuesStorage.setDeltaP(GasCalculator.calculateDeltaP(appUtils.getDoubleFromField(maxPressureField),
                     appUtils.getDoubleFromField(startPressureField), valuesStorage.getMstar(),
@@ -199,8 +206,8 @@ public class Task1Controller implements Initializable {
             valuesStorage.setGasName(dropDownList.getValue());
             valuesStorage.setNc(NcField);
             valuesStorage.setNh(NhField);
-            valuesStorage.setNo(appUtils.getDoubleFromField(NoField));
-            valuesStorage.setNx(appUtils.getDoubleFromField(NxField));
+//            valuesStorage.setNo(appUtils.getDoubleFromField(NoField));
+//            valuesStorage.setNx(appUtils.getDoubleFromField(NxField));
             valuesStorage.setContainerPressure(appUtils.getDoubleFromField(pressureField));
             valuesStorage.setContainerVolume(appUtils.getDoubleFromField(volumeField));
             valuesStorage.setGasConsumption(appUtils.getDoubleFromField(gasConsumptionField));
@@ -267,7 +274,22 @@ public class Task1Controller implements Initializable {
         widthField.clear();
         heightField.clear();
         areaCoefField.clear();
-        NoField.clear();
-        NxField.clear();
+    }
+
+    public void onGetInfoButton(ActionEvent event){
+        warningLabel.setText("Ввод данных об объекте");
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("buildingCredentials.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 900, 500);
+            Stage stage = new Stage();
+            stage.setTitle("Информация об объекте");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Failed to create new Window.", e);
+        }
+
     }
 }

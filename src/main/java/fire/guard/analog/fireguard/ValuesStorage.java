@@ -7,7 +7,19 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ValuesStorage {
+    private static ValuesStorage instance;
+    ValuesStorage() {}
 
+    public static ValuesStorage getInstance() {
+        if (ValuesStorage.instance == null) {
+            synchronized (ValuesStorage.class) {
+                if (ValuesStorage.instance == null) {
+                    ValuesStorage.instance = new ValuesStorage();
+                }
+            }
+        }
+        return ValuesStorage.instance;
+    }
     private Double Va;
     private Double V1m;
     private Double V2m;
@@ -50,4 +62,13 @@ public class ValuesStorage {
     private Double Csteh;
 
     private Double deltaP;
+
+    private String objectAddress;
+    private String objectName;
+    private String producerFio;
+    private String consumerFio;
+    private String buildingType;
+    private String roomType;
+    private String producerRank;
+    private String consumerRank;
 }

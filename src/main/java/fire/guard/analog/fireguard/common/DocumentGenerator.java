@@ -89,7 +89,14 @@ public class DocumentGenerator {
         data.put("dpodv",storage.getDpodv().toString());
         data.put("dotv",storage.getDotv().toString());
         data.put("molarMass", storage.getMolarMass().toString());
-
+        data.put("objectAddress", storage.getObjectAddress());
+        data.put("objectName", storage.getObjectName());
+        data.put("producerFio", storage.getProducerFio());
+        data.put("consumerFio", storage.getConsumerFio());
+        data.put("buildingType", storage.getBuildingType());
+        data.put("roomType", storage.getRoomType());
+        data.put("producerRank", storage.getProducerRank());
+        data.put("consumerRank", storage.getConsumerRank());
         data.put("Kn", String.valueOf(3.0));///XD ))))))))))) legacy joke
         return data;
     }
