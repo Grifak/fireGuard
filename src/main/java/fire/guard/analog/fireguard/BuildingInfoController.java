@@ -38,7 +38,6 @@ public class BuildingInfoController implements Initializable {
         valuesStorage.setRoomType(roomType.getText());
         valuesStorage.setProducerRank(producerRank.getText());
         valuesStorage.setConsumerRank(consumerRank.getText());
-        System.out.println(valuesStorage.getBuildingType());
 
     }
 
