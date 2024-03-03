@@ -25,8 +25,8 @@ public class GasCalculator {
     }
 
     //5 Method to calculate m
-    public static Double calculateM(Double Va, Double Vm, Double rho) {
-        return (Va + Vm) * rho;
+    public static Double calculateM(Double Va, Double V1m, Double V2m, Double rho) {
+        return (Va + V1m) * rho;
     }
 
     //6 Method to calculate m*
