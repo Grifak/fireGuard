@@ -19,18 +19,18 @@
                <Label layoutX="33.0" layoutY="64.0" prefHeight="17.0" prefWidth="437.0" text="Масса жидкости, которая поступит из аппарата в трубопровод" />
                <TextField fx:id="pipeLenOtv" alignment="CENTER" layoutX="36.0" layoutY="138.0" prefHeight="26.0" prefWidth="169.0" promptText="длина трубопровода отв" />
                <TextField fx:id="diameterPipelinePodv" alignment="CENTER" layoutX="235.0" layoutY="98.0" prefHeight="26.0" prefWidth="188.0" promptText="диаметр трубопровода подв" />
-               <Label layoutX="33.0" layoutY="218.0" prefHeight="17.0" prefWidth="664.0" text="Масса жидкости, поступившей в помещение за счет подачи насоса до полного отключения задвижек" />
-               <TextField fx:id="pumpFeed" alignment="CENTER" layoutX="36.0" layoutY="251.0" prefHeight="25.0" prefWidth="200.0" promptText="подача насоса" />
-               <Label layoutX="37.0" layoutY="318.0" prefHeight="17.0" prefWidth="336.0" text="Площадь испарения жидкости" />
-               <TextField fx:id="lenRoom" alignment="CENTER" layoutX="36.0" layoutY="350.0" promptText="длина помещения" />
-               <TextField fx:id="sOkr" alignment="CENTER" layoutX="34.0" layoutY="407.0" promptText="площадь окр изд" />
-               <Label layoutX="34.0" layoutY="479.0" prefHeight="17.0" prefWidth="419.0" text="Интенсивность испарения" />
-               <TextField fx:id="airExchange" alignment="CENTER" layoutX="37.0" layoutY="518.0" prefHeight="26.0" prefWidth="169.0" promptText="кратность воздухообмена" />
+               <Label layoutX="33.0" layoutY="184.0" prefHeight="17.0" prefWidth="664.0" text="Масса жидкости, поступившей в помещение за счет подачи насоса до полного отключения задвижек" />
+               <TextField fx:id="pumpFeed" alignment="CENTER" layoutX="36.0" layoutY="217.0" prefHeight="25.0" prefWidth="200.0" promptText="подача насоса" />
+               <Label layoutX="37.0" layoutY="268.0" prefHeight="17.0" prefWidth="336.0" text="Площадь испарения жидкости" />
+               <TextField fx:id="lenRoom" alignment="CENTER" layoutX="36.0" layoutY="300.0" promptText="длина помещения" />
+               <TextField fx:id="sOkr" alignment="CENTER" layoutX="34.0" layoutY="357.0" promptText="площадь окр изд" />
+               <Label layoutX="37.0" layoutY="411.0" prefHeight="17.0" prefWidth="419.0" text="Интенсивность испарения" />
+               <TextField fx:id="airExchange" alignment="CENTER" layoutX="37.0" layoutY="450.0" prefHeight="26.0" prefWidth="169.0" promptText="кратность воздухообмена" />
                <TextField fx:id="pipeLenPodv" alignment="CENTER" layoutX="36.0" layoutY="98.0" prefWidth="169.0" promptText="длина трубопровода подв" />
-               <TextField fx:id="shutOffTime" alignment="CENTER" layoutX="265.0" layoutY="251.0" prefHeight="26.0" prefWidth="200.0" promptText="время отключения задвижек" />
-               <TextField fx:id="wedRoom" alignment="CENTER" layoutX="231.0" layoutY="350.0" promptText="ширина помещения" />
-               <TextField fx:id="heiRoom" alignment="CENTER" layoutX="428.0" layoutY="350.0" promptText="высота помещения" />
-               <TextField fx:id="sMirror" alignment="CENTER" layoutX="232.0" layoutY="407.0" promptText="площадь зеркала ванны" />
+               <TextField fx:id="shutOffTime" alignment="CENTER" layoutX="265.0" layoutY="217.0" prefHeight="26.0" prefWidth="200.0" promptText="время отключения задвижек" />
+               <TextField fx:id="wedRoom" alignment="CENTER" layoutX="231.0" layoutY="300.0" promptText="ширина помещения" />
+               <TextField fx:id="heiRoom" alignment="CENTER" layoutX="428.0" layoutY="300.0" promptText="высота помещения" />
+               <TextField fx:id="sMirror" alignment="CENTER" layoutX="232.0" layoutY="357.0" promptText="площадь зеркала ванны" />
                <TextField fx:id="stechCoef" alignment="CENTER" editable="false" layoutX="940.0" layoutY="685.0" promptText="результат" style="-fx-background-color: lightgreen;" />
                <Label alignment="CENTER" layoutX="940.0" layoutY="668.0" prefHeight="17.0" prefWidth="161.0" text="стехиометрический коэф">
                   <font>
@@ -49,28 +49,28 @@
                      <Font size="10.0" />
                   </font>
                </Label>
-               <Button fx:id="clearBut" layoutX="136.0" layoutY="622.0" mnemonicParsing="false" onAction="#cleanFieds" prefHeight="37.0" prefWidth="161.0" text="отчистить поля" />
-               <Button fx:id="calk" layoutX="390.0" layoutY="622.0" mnemonicParsing="false" onAction="#calk" prefHeight="37.0" prefWidth="161.0" text="произвести вычисления" />
-               <Button fx:id="generateBut" defaultButton="true" layoutX="252.0" layoutY="705.0" mnemonicParsing="false" onAction="#generateDoc" prefHeight="41.0" prefWidth="208.0" text="cгенерировать отчет " textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS" underline="true" />
-               <Label fx:id="warningLabel" alignment="CENTER" layoutX="105.0" layoutY="679.0" prefHeight="17.0" prefWidth="482.0" textAlignment="CENTER" />
-               <Label layoutX="475.0" layoutY="500.0" prefHeight="17.0" prefWidth="188.0" text="константы уравнения Антуана" textAlignment="CENTER">
+               <Button fx:id="clearBut" layoutX="136.0" layoutY="694.0" mnemonicParsing="false" onAction="#cleanFieds" prefHeight="37.0" prefWidth="161.0" text="отчистить поля" />
+               <Button fx:id="calk" layoutX="390.0" layoutY="694.0" mnemonicParsing="false" onAction="#calk" prefHeight="37.0" prefWidth="161.0" text="произвести вычисления" />
+               <Button fx:id="generateBut" defaultButton="true" layoutX="252.0" layoutY="777.0" mnemonicParsing="false" onAction="#generateDoc" prefHeight="41.0" prefWidth="208.0" text="cгенерировать отчет " textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS" underline="true" />
+               <Label fx:id="warningLabel" alignment="CENTER" layoutX="170.0" layoutY="752.0" prefHeight="17.0" prefWidth="404.0" textAlignment="CENTER" />
+               <Label layoutX="475.0" layoutY="432.0" prefHeight="17.0" prefWidth="188.0" text="константы уравнения Антуана" textAlignment="CENTER">
                   <font>
                      <Font size="10.0" />
                   </font>
                </Label>
-               <TextField fx:id="antuanB" layoutX="509.0" layoutY="518.0" prefHeight="26.0" prefWidth="75.0" />
-               <TextField fx:id="antuanC" layoutX="603.0" layoutY="518.0" prefHeight="26.0" prefWidth="75.0" />
-               <Label layoutX="450.0" layoutY="548.0" text="A" wrapText="true">
+               <TextField fx:id="antuanB" layoutX="509.0" layoutY="450.0" prefHeight="26.0" prefWidth="75.0" />
+               <TextField fx:id="antuanC" layoutX="603.0" layoutY="450.0" prefHeight="26.0" prefWidth="75.0" />
+               <Label layoutX="450.0" layoutY="480.0" text="A" wrapText="true">
                   <font>
                      <Font name="System Bold" size="13.0" />
                   </font>
                </Label>
-               <Label layoutX="542.0" layoutY="548.0" text="B" wrapText="true">
+               <Label layoutX="542.0" layoutY="480.0" text="B" wrapText="true">
                   <font>
                      <Font name="System Bold" size="13.0" />
                   </font>
                </Label>
-               <Label layoutX="635.0" layoutY="548.0" text="C" wrapText="true">
+               <Label layoutX="635.0" layoutY="480.0" text="C" wrapText="true">
                   <font>
                      <Font name="System Bold" size="13.0" />
                   </font>
@@ -83,8 +83,8 @@
                <TextField fx:id="coefFreeSpace" alignment="CENTER" layoutX="456.0" layoutY="98.0" prefHeight="26.0" prefWidth="200.0" promptText="коэф свободного пространства" />
                <TextField fx:id="capacityVol" alignment="CENTER" layoutX="456.0" layoutY="138.0" prefWidth="200.0" promptText="объем емкости" />
                <TextField fx:id="diameterPipelineOtv" alignment="CENTER" layoutX="235.0" layoutY="138.0" prefHeight="25.0" prefWidth="188.0" promptText="диаметр трубопровода отв" />
-               <ChoiceBox fx:id="tempList" accessibleHelp="тепература воздуха" layoutX="230.0" layoutY="519.0" prefHeight="26.0" prefWidth="156.0" />
-               <Label layoutX="227.0" layoutY="502.0" prefHeight="17.0" prefWidth="161.0" text="температура воздуха в помещении">
+               <ChoiceBox fx:id="tempList" accessibleHelp="тепература воздуха" layoutX="230.0" layoutY="451.0" prefHeight="26.0" prefWidth="156.0" />
+               <Label layoutX="227.0" layoutY="434.0" prefHeight="17.0" prefWidth="161.0" text="температура воздуха в помещении">
                   <font>
                      <Font size="10.0" />
                   </font>
@@ -146,7 +146,18 @@
                      <Font size="10.0" />
                   </font>
                </Label>
-               <TextField fx:id="antuanA" layoutX="417.0" layoutY="518.0" prefHeight="26.0" prefWidth="75.0" />
+               <TextField fx:id="antuanA" layoutX="417.0" layoutY="450.0" prefHeight="26.0" prefWidth="75.0" />
+               <Label layoutX="42.0" layoutY="497.0" prefHeight="17.0" prefWidth="161.0" text="Информация об объекте" />
+               <TextField fx:id="objectAdress" alignment="CENTER" layoutX="41.0" layoutY="526.0" promptText="адрес" />
+               <TextField fx:id="objectName" alignment="CENTER" layoutX="227.0" layoutY="526.0" promptText="название" />
+               <TextField fx:id="producerFio" alignment="CENTER" layoutX="37.0" layoutY="608.0" prefHeight="25.0" prefWidth="300.0" promptText="ФИО" />
+               <TextField fx:id="consumerFio" alignment="CENTER" layoutX="532.0" layoutY="608.0" prefHeight="25.0" prefWidth="300.0" promptText="ФИО" />
+               <Label alignment="CENTER" layoutX="107.0" layoutY="569.0" prefHeight="17.0" prefWidth="161.0" text="Произвел расчеты" />
+               <Label alignment="CENTER" layoutX="602.0" layoutY="567.0" prefHeight="17.0" prefWidth="161.0" text="Принял расчеты" />
+               <TextField fx:id="buildingType" alignment="CENTER" layoutX="412.0" layoutY="526.0" promptText="тип здания" />
+               <TextField fx:id="roomType" alignment="CENTER" layoutX="598.0" layoutY="526.0" promptText="тип помещения" />
+               <TextField fx:id="producerRank" alignment="CENTER" layoutX="34.0" layoutY="643.0" prefHeight="25.0" prefWidth="300.0" promptText="должность" />
+               <TextField fx:id="consumerRank" alignment="CENTER" layoutX="532.0" layoutY="643.0" prefHeight="25.0" prefWidth="300.0" promptText="должность" />
             </children></AnchorPane>
       </Pane>
    </children>

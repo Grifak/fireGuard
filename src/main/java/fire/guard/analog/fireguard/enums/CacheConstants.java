@@ -57,7 +57,15 @@ public enum CacheConstants {
     N_H("nH"),
     N_O("nO"),
 
-    N_X("nX");
+    N_X("nX"),
+
+    OBJECT_NAME("objectName"),
+    OBJECT_ADRESS("objectAdress"),
+    PRODUCER_RANK("producerRank"),
+    PRODUCER_FIO("producerFio"),
+    CONSUMER_RANK("consumerRank"),
+    CONSUMER_FIO("consumerFio");
+
 
     private final String name;
 }

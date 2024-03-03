@@ -10,6 +10,8 @@ import static fire.guard.analog.fireguard.enums.CacheConstants.ANTUANA_B;
 import static fire.guard.analog.fireguard.enums.CacheConstants.ANTUANA_C;
 import static fire.guard.analog.fireguard.enums.CacheConstants.CAPACITY_VOL;
 import static fire.guard.analog.fireguard.enums.CacheConstants.COEF_FREE_SPACE;
+import static fire.guard.analog.fireguard.enums.CacheConstants.CONSUMER_FIO;
+import static fire.guard.analog.fireguard.enums.CacheConstants.CONSUMER_RANK;
 import static fire.guard.analog.fireguard.enums.CacheConstants.DENSITY;
 import static fire.guard.analog.fireguard.enums.CacheConstants.DIAMETER_PIPELINE_ODV;
 import static fire.guard.analog.fireguard.enums.CacheConstants.DIAMETER_PIPELINE_PODV;
@@ -26,9 +28,13 @@ import static fire.guard.analog.fireguard.enums.CacheConstants.N_C;
 import static fire.guard.analog.fireguard.enums.CacheConstants.N_H;
 import static fire.guard.analog.fireguard.enums.CacheConstants.N_O;
 import static fire.guard.analog.fireguard.enums.CacheConstants.N_X;
+import static fire.guard.analog.fireguard.enums.CacheConstants.OBJECT_ADRESS;
+import static fire.guard.analog.fireguard.enums.CacheConstants.OBJECT_NAME;
 import static fire.guard.analog.fireguard.enums.CacheConstants.PIPE_LEN_ODV;
 import static fire.guard.analog.fireguard.enums.CacheConstants.PIPE_LEN_PODV;
 import static fire.guard.analog.fireguard.enums.CacheConstants.PIPE_LIQUID_MASS;
+import static fire.guard.analog.fireguard.enums.CacheConstants.PRODUCER_FIO;
+import static fire.guard.analog.fireguard.enums.CacheConstants.PRODUCER_RANK;
 import static fire.guard.analog.fireguard.enums.CacheConstants.PUMP_FEED;
 import static fire.guard.analog.fireguard.enums.CacheConstants.PUMP_LIQUID_MASS;
 import static fire.guard.analog.fireguard.enums.CacheConstants.ROOM_HEIGHT;
@@ -61,7 +67,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 
 public class Task2Controller implements Initializable {
-    private Map<String, Double> cache;
+    private Map<String, Object> cache;
     private LvgCalculator calculator;
     private ApplicationUtils appUtils;
     private Task2Substance substance;
@@ -166,6 +172,23 @@ public class Task2Controller implements Initializable {
     @FXML
     private Label warningLabel;
 
+    @FXML
+    private TextField objectAdress;
+    @FXML
+    private TextField objectName;
+    @FXML
+    private TextField buildingType;
+    @FXML
+    private TextField roomType;
+    @FXML
+    private TextField consumerFio;
+    @FXML
+    private TextField consumerRank;
+    @FXML
+    private TextField producerFio;
+    @FXML
+    private TextField producerRank;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         cache = new HashMap<>();
@@ -227,6 +250,12 @@ public class Task2Controller implements Initializable {
         cache.put(PIPE_LEN_PODV.getName(), appUtils.getDoubleFromField(pipeLenPodv));
         cache.put(DIAMETER_PIPELINE_PODV.getName(), appUtils.getDoubleFromField(diameterPipelinePodv));
         cache.put(DIAMETER_PIPELINE_ODV.getName(), appUtils.getDoubleFromField(diameterPipelineOtv));
+        cache.put(OBJECT_ADRESS.getName(), objectAdress.getText());
+        cache.put(OBJECT_NAME.getName(), objectName.getText());
+        cache.put(PRODUCER_RANK.getName(), producerRank.getText());
+        cache.put(CONSUMER_RANK.getName(), consumerRank.getText());
+        cache.put(PRODUCER_FIO.getName(), producerFio.getText());
+        cache.put(CONSUMER_FIO.getName(), consumerFio.getText());
     }
 
     @FXML
@@ -282,6 +311,14 @@ public class Task2Controller implements Initializable {
         vapourDensity.setText(null);
         stechCoef.setText(null);
         excesPress.setText(null);
+        consumerFio.setText(null);
+        consumerRank.setText(null);
+        producerFio.setText(null);
+        producerRank.setText(null);
+        objectAdress.setText(null);
+        objectName.setText(null);
+        buildingType.setText(null);
+        roomType.setText(null);
     }
 
     public void getSubstanceValue(ActionEvent event){
@@ -375,18 +412,18 @@ public class Task2Controller implements Initializable {
             cache.put(EVAP_RATE.getName(), evapRateVal);
             evapRate.setText(evapRateVal.toString());
 
-            Double evapTimeVal = calculator.calcEvapTime(cache.get(TECH_LIQUID_MASS.getName()), cache.get(LIQUID_EVAP.getName()), evapRateVal);
+            Double evapTimeVal = calculator.calcEvapTime((Double) cache.get(TECH_LIQUID_MASS.getName()), (Double) cache.get(LIQUID_EVAP.getName()), evapRateVal);
             cache.put(EVAP_TIME.getName(), evapTimeVal);
             evaporTime.setText(evapTimeVal.toString());
 
-            Double massEvap = calculator.calcMassEvap(cache.get(LIQUID_EVAP.getName()), evapRateVal);
+            Double massEvap = calculator.calcMassEvap((Double) cache.get(LIQUID_EVAP.getName()), evapRateVal);
             cache.put(MASS_EVAP.getName(), massEvap);
 
             Double vapourMassVal = calculator.calcVapourMass(massEvap, evapTimeVal, airExchange);
             cache.put(VAPOUR_MASS.getName(), vapourMassVal);
             vapourMass.setText(vapourMassVal.toString());
 
-            Double freeSpaceVal = calculator.calcFreeSpace(cache.get(V_ROOM.getName()));
+            Double freeSpaceVal = calculator.calcFreeSpace((Double) cache.get(V_ROOM.getName()));
             cache.put(FREE_SPACE.getName(), freeSpaceVal);
             freeSpace.setText(freeSpaceVal.toString());
 

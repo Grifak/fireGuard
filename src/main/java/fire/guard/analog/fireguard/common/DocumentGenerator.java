@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DocumentGenerator {
-    public String generateDocLVG(Map<String, Double> data, String filePathPdf, String substanceName) throws Exception {
+    public String generateDocLVG(Map<String, Object> data, String filePathPdf, String substanceName) throws Exception {
         Map<String, String> result = data.entrySet()
                 .stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, e -> String.valueOf(e.getValue())));
