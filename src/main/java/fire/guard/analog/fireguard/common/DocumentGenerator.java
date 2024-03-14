@@ -20,7 +20,7 @@ public class DocumentGenerator {
                 .collect(Collectors.toMap(Map.Entry::getKey, e -> String.valueOf(e.getValue())));
 
         result.put(CacheConstants.SUBSTANCE_NAME.getName(), substanceName);
-        URL resource = DocumentGenerator.class.getClassLoader().getResource("templates/template_LVG.docx");
+        URL resource = new URL("file:///C:/template_LVG.docx");
         return createDocument(resource, result, filePathPdf);
     }
 
@@ -30,7 +30,7 @@ public class DocumentGenerator {
 
         try {
             warningLabel.setText("Создается отчет...");
-            URL resource = DocumentGenerator.class.getClassLoader().getResource("templates/template_GG.docx");
+            URL resource = new URL("file:///C:/template_GG.docx");
             return createDocument(resource, data, filePathPdf);
         }catch (Exception e){
             warningLabel.setText(e.getMessage());
